@@ -1,4 +1,11 @@
+*.a
+*.o
+*.os
+*.pyc
+*.so
+*.tar.gz
 *~
-build
-msg_gen
 TAGS
+build/
+msg_gen/
+src/id_msgs/msg/

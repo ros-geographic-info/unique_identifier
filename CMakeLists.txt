@@ -5,3 +5,7 @@ rosbuild_init()
 
 # build messages
 rosbuild_genmsg()
+
+# unit tests
+rosbuild_add_pyunit(tests/test_unique_id.py)
+
