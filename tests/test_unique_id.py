@@ -6,6 +6,8 @@ import roslib; roslib.load_manifest(PKG)
 import sys
 import unittest
 
+import uuid                     # standard Python module
+
 from id_msgs.unique_id import *
 from id_msgs.msg import UniqueIdentifier
 
@@ -13,7 +15,15 @@ class TestPythonUUID(unittest.TestCase):
     """Unit tests for Python UUID generation.
     """
 
-    # raw UUID generation tests
+    # random UUID generation tests
+    def test_random_uuid(self):
+        # this test is trivial, but necessary
+        x = random()
+        y = random()
+        self.assertEqual(x, x)
+        self.assertNotEqual(x, y)
+
+    # UUID generation from URL tests
     def test_int_with_leading_zeros(self):
         x = generate('http://openstreetmap.org/node/', 1)
         y = generate('http://openstreetmap.org/node/', 0001)
@@ -50,7 +60,7 @@ class TestPythonUUID(unittest.TestCase):
         self.assertRaises(ValueError, generate,
                           'http://openstreetmap.org/way/', 'xxx')
 
-    # UniqueID message generation tests
+    # UniqueIdentifier message generation tests
     def test_msg_creation(self):
         msg = makeUniqueIdentifier('http://openstreetmap.org/node/', 152370223)
         self.assertEqual(msg.uuid, '8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac')
@@ -74,6 +84,21 @@ class TestPythonUUID(unittest.TestCase):
     def test_msg_invalid_value(self):
         self.assertRaises(ValueError, makeUniqueIdentifier,
                           'http://openstreetmap.org/way/', 'xxx')
+
+    def test_nil_msg(self):
+        x = UniqueIdentifier()
+        y = toMsg(uuid.UUID('00000000-0000-0000-0000-000000000000'))
+        self.assertEqual(x, y)
+
+    def test_random_msg(self):
+        x = UniqueIdentifier()
+        y = toMsg(random())
+        self.assertNotEqual(x, y)
+
+    def test_equivalent_msgs(self):
+        x = uuid.UUID('da7c242f-2efe-5175-9961-49cc621b80b9')
+        y = uuid.UUID('da7c242f-2efe-5175-9961-49cc621b80b9')
+        self.assertEqual(toMsg(x), toMsg(y))
 
 if __name__ == '__main__':
     import rosunit

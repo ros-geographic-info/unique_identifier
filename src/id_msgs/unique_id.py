@@ -90,9 +90,11 @@ def generate(url, id=None):
         url += str(int(id))
     return uuid.uuid5(uuid.NAMESPACE_URL, url)
 
-
 def makeUniqueIdentifier(url, id=None):
     """Create a UniqueIdentifier message for *id* number in name space *ns*.
+
+    .. deprecated:: 0.2.0
+       Use :py:func:`toMsg`, instead.
 
     :param url: URL indicating generating source
     :param id: (optional) identifier, unique within URL name space
@@ -101,3 +103,18 @@ def makeUniqueIdentifier(url, id=None):
     :raises: :exc:`ValueError` if *id* not convertible to int.
     """
     return UniqueIdentifier(uuid = str(generate(url, id)))
+
+def random():
+    """Create a random UUID object.
+
+    :returns: standard type 4 Python :class:`uuid` object
+    """
+    return uuid.uuid4()
+
+def toMsg(uuid_obj):
+    """Create a UniqueIdentifier message from a UUID object.
+
+    :param uuid_obj: standard Python :class:`uuid` object
+    :returns: `id_msgs/UniqueIdentifier`_ message
+    """
+    return UniqueIdentifier(uuid = uuid_obj.bytes)
