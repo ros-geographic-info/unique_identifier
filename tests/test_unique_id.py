@@ -16,17 +16,20 @@ class TestPythonUUID(unittest.TestCase):
     """
 
     # random UUID generation tests
-    def test_random_uuid(self):
-        # this test is trivial, but necessary
+    def test_random_uuids(self):
         x = random()
-        y = random()
+        self.assertEqual(type(x), uuid.UUID)
         self.assertEqual(x, x)
+        y = random()
+        self.assertEqual(type(y), uuid.UUID)
         self.assertNotEqual(x, y)
 
     # UUID generation from URL tests
     def test_int_with_leading_zeros(self):
         x = generate('http://openstreetmap.org/node/', 1)
+        self.assertEqual(type(x), uuid.UUID)
         y = generate('http://openstreetmap.org/node/', 0001)
+        self.assertEqual(type(y), uuid.UUID)
         self.assertEqual(x, y)
         self.assertEqual(str(x), 'ef362ac8-9659-5481-b954-88e9b741c8f9')
 
@@ -96,9 +99,24 @@ class TestPythonUUID(unittest.TestCase):
         self.assertNotEqual(x, y)
 
     def test_equivalent_msgs(self):
+        s = 'da7c242f-2efe-5175-9961-49cc621b80b9'
+        x = toMsg(uuid.UUID(s))
+        y = toMsg(uuid.UUID(s))
+        self.assertEqual(x, y)
+        self.assertEqual(s, toString(y))
+
+    def test_to_and_from_msg(self):
         x = uuid.UUID('da7c242f-2efe-5175-9961-49cc621b80b9')
-        y = uuid.UUID('da7c242f-2efe-5175-9961-49cc621b80b9')
-        self.assertEqual(toMsg(x), toMsg(y))
+        y = (fromMsg(toMsg(x)))
+        self.assertEqual(x, y)
+        self.assertEqual(type(y), uuid.UUID)
+
+    def test_msg_to_string(self):
+        s = 'da7c242f-2efe-5175-9961-49cc621b80b9'
+        x = toMsg(uuid.UUID(s))
+        y = toString(x)
+        self.assertEqual(s, y)
+        self.assertEqual(type(y), str)
 
 if __name__ == '__main__':
     import rosunit

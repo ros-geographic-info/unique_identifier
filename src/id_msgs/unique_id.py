@@ -33,36 +33,12 @@
 """
 .. module:: unique_id
 
-Generate Universally Unique Identifiers.
+Generate universally unique identifiers and messages.
 
-Map points, features and segments all have universally unique
-identifier names (UUID_), using `id_msgs/UniqueIdentifier`_ messages.
-
-Matching features within each name space must yield the same UUID.
-The method used is `RFC 4122`_ variant 5, computing the SHA-1 hash of
-a URL encoded using the map source.  
-
-For example, Open Street Map identifiers are encoded like this::
-
-  generate('http://openstreetmap.org/node/', node_id)
-  generate('http://openstreetmap.org/way/', way_id)
-  generate('http://openstreetmap.org/relation/', rel_id)
-
-Here the `*_id` parameters are integer representations of OSM node,
-way, or relation identifiers.
-
-For RouteSegment graph edges we use::
-
-  generate('http://ros.org/wiki/PACKAGE_NAME/START_UUID/END_UUID')
-
-Where PACKAGE_NAME is the generating ROS package, START_UUID names the
-beginning way point, and END_UUID is the ending way point.
-
-.. note::
-
-   We store the string representation of the UUID in the
-   `id_msgs/UniqueIdentifier`_ message.  That uses over twice the
-   space of a 16-byte array, but makes the messages human-readable.
+Various ROS components use universally unique identifiers
+(UUID_). This module provides functions for working with a common
+`id_msgs/UniqueIdentifier`_ message definition, with a thin ROS
+wrapper using the standard Python :py:class:`uuid.UUID` class.
 
 .. _`id_msgs/UniqueIdentifier`: http://ros.org/doc/api/id_msgs/html/msg/UniqueIdentifier.html
 .. _`RFC 4122`: http://tools.ietf.org/html/rfc4122.html
@@ -76,14 +52,35 @@ from id_msgs.msg import UniqueIdentifier
 
 import uuid
 
+def fromMsg(msg):
+    """Create UUID object from UniqueIdentifier message.
+
+    :param msg: `id_msgs/UniqueIdentifier`_ message.
+    :returns: standard Python :class:`uuid.UUID` object.
+    """
+    return uuid.UUID(bytes = msg.uuid)
+
 def generate(url, id=None):
     """ Generate UUID_ from URL.
+
+    Matching features within each name space must yield the same UUID.
+    The method used is `RFC 4122`_ variant 5, computing the SHA-1 hash
+    of a URL encoded using the map source.
+
+    For example, Open Street Map identifiers are encoded like this::
+
+        generate('http://openstreetmap.org/node/' + str(node_id))
+        generate('http://openstreetmap.org/way/' + str(way_id))
+        generate('http://openstreetmap.org/relation/ + str(rel_id))
+
+    Decimal representations of the integer OSM node, way, or relation
+    identifiers are appended to the URL.
 
     :param url: URL indicating generating source
     :param id: (optional) identifier, unique within URL name space
     :type  id: int or string convertible to int
 
-    :returns: standard Python uuid object
+    :returns: standard Python :class:`uuid.UUID` object.
     :raises: :exc:`ValueError` if *id* not convertible to int.
 """
     if id is not None:
@@ -107,14 +104,22 @@ def makeUniqueIdentifier(url, id=None):
 def random():
     """Create a random UUID object.
 
-    :returns: standard type 4 Python :class:`uuid` object
+    :returns: standard type 4 Python :class:`uuid.UUID` object.
     """
     return uuid.uuid4()
 
 def toMsg(uuid_obj):
     """Create a UniqueIdentifier message from a UUID object.
 
-    :param uuid_obj: standard Python :class:`uuid` object
+    :param uuid_obj: standard Python :class:`uuid.UUID` object.
     :returns: `id_msgs/UniqueIdentifier`_ message
     """
     return UniqueIdentifier(uuid = uuid_obj.bytes)
+
+def toString(msg):
+    """Create the canonical string representation for a UniqueIdentifier message.
+
+    :param msg: `id_msgs/UniqueIdentifier`_ message.
+    :returns: canonical UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'
+    """
+    return str(uuid.UUID(bytes = msg.uuid))
