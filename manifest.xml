@@ -9,4 +9,8 @@
   <review status="experimental" notes=""/>
   <url>http://ros.org/wiki/id_msgs</url>
 
+  <export>
+    <rosdoc config="rosdoc.yaml" />
+  </export>
+
 </package>
