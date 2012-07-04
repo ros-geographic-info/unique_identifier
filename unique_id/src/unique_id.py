@@ -37,8 +37,16 @@ Generate universally unique identifiers and messages.
 
 Various ROS components use universally unique identifiers
 (UUID_). This module provides functions for working with a common
-`uuid_msgs/UniqueID`_ message definition, with a thin ROS
-wrapper around the standard Python :py:class:`uuid.UUID` class.
+`uuid_msgs/UniqueID`_ message, and the standard Python
+:class:`uuid.UUID` class.
+
+Programmers are free to create UUID objects using any approved `RFC
+4122`_ method. The standard Python :py:mod:`uuid` module supports them
+all.
+
+Many ROS applications need either a random (:func:`fromRandom`) or a
+name-based UUID. The :func:`fromURL` function generates a name-based
+UUID from a URL string.
 
 .. _`uuid_msgs/UniqueID`: http://ros.org/doc/api/uuid_msgs/html/msg/UniqueID.html
 .. _`RFC 4122`: http://tools.ietf.org/html/rfc4122.html
@@ -56,16 +64,27 @@ def fromMsg(msg):
     """Create UUID object from UniqueID message.
 
     :param msg: `uuid_msgs/UniqueID`_ message.
-    :returns: standard Python :class:`uuid.UUID` object.
+    :returns: :class:`uuid.UUID` object.
     """
     return uuid.UUID(bytes = msg.uuid)
 
-def generate(url, id=None):
-    """ Generate UUID from URL.
+def fromRandom():
+    """Generate a random UUID object.
 
-    Matching features within each name space must yield the same UUID.
-    The method used is `RFC 4122`_ variant 5, computing the SHA-1 hash
-    of a URL encoded using the map source.
+    :returns: type 4 :class:`uuid.UUID` object.
+    """
+    return uuid.uuid4()
+
+def fromURL(url):
+    """ Generate UUID from Uniform Resource Locator.
+
+    :param url: URL for identifier creation.
+    :returns: type 5 :class:`uuid.UUID` object.
+
+    Matching *url* strings must yield the same UUID. Different *url*
+    strings will almost certainly generate different UUIDs. The method
+    used is `RFC 4122`_ variant 5, computing the SHA-1 hash of the
+    *url*.
 
     For example, Open Street Map identifiers are encoded like this::
 
@@ -75,30 +94,14 @@ def generate(url, id=None):
 
     Decimal representations of the integer OSM node, way, or relation
     identifiers are appended to the URL.
-
-    :param url: URL indicating generating source
-    :param id: (optional) identifier, unique within URL name space
-    :type  id: int or string convertible to int
-
-    :returns: standard Python :class:`uuid.UUID` object.
-    :raises: :exc:`ValueError` if *id* not convertible to int.
-"""
-    if id is not None:
-        url += str(int(id))
-    return uuid.uuid5(uuid.NAMESPACE_URL, url)
-
-def random():
-    """Create a random UUID object.
-
-    :returns: standard type 4 Python :class:`uuid.UUID` object.
     """
-    return uuid.uuid4()
+    return uuid.uuid5(uuid.NAMESPACE_URL, url)
 
 def toMsg(uuid_obj):
     """Create a UniqueID message from a UUID object.
 
     :param uuid_obj: standard Python :class:`uuid.UUID` object.
-    :returns: `uuid_msgs/UniqueID`_ message
+    :returns: `uuid_msgs/UniqueID`_ message.
     """
     return UniqueID(uuid = uuid_obj.bytes)
 
@@ -106,6 +109,9 @@ def toString(msg):
     """Create the canonical string representation for a UniqueID message.
 
     :param msg: `uuid_msgs/UniqueID`_ message.
-    :returns: canonical UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'
+    :returns: canonical UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'.
+
+    A :class:`uuid.UUID` object yields the same representation via the
+    :py:func:`str` function.
     """
     return str(uuid.UUID(bytes = msg.uuid))
