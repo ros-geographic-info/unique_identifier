@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# id_msgs documentation build configuration file, created by
+# unique_id documentation build configuration file, created by
 # sphinx-quickstart on Wed Apr 25 16:01:20 2012.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -12,7 +12,7 @@
 # serve to show the default.
 
 import roslib
-roslib.load_manifest('id_msgs')
+roslib.load_manifest('unique_id')
 import sys, os
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -42,7 +42,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'id_msgs'
+project = u'unique_id'
 copyright = u'2012, Jack O\'Quin'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -166,7 +166,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'id_msgsdoc'
+htmlhelp_basename = 'unique_iddoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -185,7 +185,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'id_msgs.tex', u'ROS support for universally unique identifiers.',
+  ('index', 'unique_id.tex', u'ROS support for universally unique identifiers.',
    u'Jack O\'Quin', 'manual'),
 ]
 
@@ -215,7 +215,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'id_msgs', u'ROS support for universally unique identifiers.',
+    ('index', 'unique_id', u'ROS support for universally unique identifiers.',
      [u'Jack O\'Quin'], 1)
 ]
 
@@ -229,8 +229,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'id_msgs', u'id_msgs Documentation',
-   u'Jack O\'Quin', 'id_msgs', 'ROS support for universally unique identifiers.',
+  ('index', 'unique_id', u'unique_id Documentation',
+   u'Jack O\'Quin', 'unique_id', 'ROS support for universally unique identifiers.',
    'Miscellaneous'),
 ]
 

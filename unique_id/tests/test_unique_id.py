@@ -9,7 +9,7 @@ import unittest
 import uuid                     # standard Python module
 
 from uuid_msgs.msg import UniqueID
-from unique_id.unique_id import *
+from unique_id import *
 
 class TestPythonUUID(unittest.TestCase):
     """Unit tests for Python UUID generation.

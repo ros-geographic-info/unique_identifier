@@ -1,5 +1,5 @@
-id_msgs.unique_id
------------------
+unique_id
+---------
 
-.. automodule:: id_msgs.unique_id
+.. automodule:: unique_id
    :members:
