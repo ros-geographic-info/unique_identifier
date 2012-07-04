@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-PKG='id_msgs'
+PKG='unique_id'
 import roslib; roslib.load_manifest(PKG)
 
 import sys
@@ -8,8 +8,8 @@ import unittest
 
 import uuid                     # standard Python module
 
-from id_msgs.unique_id import *
-from id_msgs.msg import UniqueIdentifier
+from uuid_msgs.msg import UniqueID
+from unique_id.unique_id import *
 
 class TestPythonUUID(unittest.TestCase):
     """Unit tests for Python UUID generation.
@@ -63,38 +63,38 @@ class TestPythonUUID(unittest.TestCase):
         self.assertRaises(ValueError, generate,
                           'http://openstreetmap.org/way/', 'xxx')
 
-    # UniqueIdentifier message generation tests
+    # UniqueID message generation tests
     def test_msg_creation(self):
-        msg = makeUniqueIdentifier('http://openstreetmap.org/node/', 152370223)
+        msg = makeUniqueID('http://openstreetmap.org/node/', 152370223)
         self.assertEqual(msg.uuid, '8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac')
         
     def test_msg_same_id_different_namespace(self):
-        x = makeUniqueIdentifier('http://openstreetmap.org/node/', 1)
-        y = makeUniqueIdentifier('http://openstreetmap.org/way/', 1)
+        x = makeUniqueID('http://openstreetmap.org/node/', 1)
+        y = makeUniqueID('http://openstreetmap.org/way/', 1)
         self.assertNotEqual(x, y)
         self.assertEqual(y.uuid, 'b3180681-b125-5e41-bd04-3c8b046175b4')
 
     def test_msg_route_segment(self):
         start = 'da7c242f-2efe-5175-9961-49cc621b80b9'
         end = '812f1c08-a34b-5a21-92b9-18b2b0cf4950'
-        x = makeUniqueIdentifier('http://ros.org/wiki/road_network/'
+        x = makeUniqueID('http://ros.org/wiki/road_network/'
                          + start + '/' + end)
-        y = makeUniqueIdentifier('http://ros.org/wiki/road_network/'
+        y = makeUniqueID('http://ros.org/wiki/road_network/'
                          + end + '/' + start)
         self.assertNotEqual(x, y)
         self.assertEqual(x.uuid, 'acaa906e-8411-5b45-a446-ccdc2fc39f29')
 
     def test_msg_invalid_value(self):
-        self.assertRaises(ValueError, makeUniqueIdentifier,
+        self.assertRaises(ValueError, makeUniqueID,
                           'http://openstreetmap.org/way/', 'xxx')
 
     def test_nil_msg(self):
-        x = UniqueIdentifier()
+        x = UniqueID()
         y = toMsg(uuid.UUID('00000000-0000-0000-0000-000000000000'))
         self.assertEqual(x, y)
 
     def test_random_msg(self):
-        x = UniqueIdentifier()
+        x = UniqueID()
         y = toMsg(random())
         self.assertNotEqual(x, y)
 

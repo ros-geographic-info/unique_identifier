@@ -6,7 +6,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   id_msgs.unique_id
+   unique_id.unique_id
 
 Indices and tables
 ==================

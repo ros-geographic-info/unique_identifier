@@ -1,8 +1,8 @@
 <stack>
-  <name>id_msgs</name>
+  <name>unique_identifier</name>
   <version>0.2.0</version>
-  <description brief="id messages">
-    ROS messages and interfaces for Universally Unique Identifiers.
+  <description brief="Universally unique identifiers">
+    ROS messages and interfaces for universally unique identifiers.
   </description>
   <author>Jack O'Quin</author>
   <maintainer>Jack O'Quin</maintainer>
@@ -11,10 +11,12 @@
   <url>http://www.ros.org/wiki/id_msgs</url>
   <review status="experimental"/>
 
+  <!--
   <build_depends>catkin</build_depends>
   <build_depends>genmsg</build_depends>
   <build_depends>langs</build_depends>
   <build_depends>roscpp_core</build_depends>
+  -->
 
   <depends>roscpp_core</depends>
 

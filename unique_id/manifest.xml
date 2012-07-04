@@ -1,13 +1,15 @@
 <package>
-  <description brief="id_msgs">
+  <description brief="Unique identifier APIs.">
 
-     ROS messages and interfaces for Universally Unique Identifiers.
+     ROS Python and C++ interfaces for universally unique identifiers.
 
   </description>
   <author>Jack O'Quin</author>
   <license>BSD</license>
   <review status="experimental" notes=""/>
-  <url>http://ros.org/wiki/id_msgs</url>
+  <url>http://ros.org/wiki/unique_id</url>
+
+  <depend package="uuid_msgs" />
 
   <export>
     <rosdoc config="rosdoc.yaml" />

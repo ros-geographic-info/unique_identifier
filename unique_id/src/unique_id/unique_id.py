@@ -37,25 +37,25 @@ Generate universally unique identifiers and messages.
 
 Various ROS components use universally unique identifiers
 (UUID_). This module provides functions for working with a common
-`id_msgs/UniqueIdentifier`_ message definition, with a thin ROS
+`id_msgs/UniqueID`_ message definition, with a thin ROS
 wrapper using the standard Python :py:class:`uuid.UUID` class.
 
-.. _`id_msgs/UniqueIdentifier`: http://ros.org/doc/api/id_msgs/html/msg/UniqueIdentifier.html
+.. _`id_msgs/UniqueID`: http://ros.org/doc/api/id_msgs/html/msg/UniqueID.html
 .. _`RFC 4122`: http://tools.ietf.org/html/rfc4122.html
 .. _UUID: http://en.wikipedia.org/wiki/Uuid
 
 """
 
-PKG='id_msgs'
+PKG='unique_id'
 import roslib; roslib.load_manifest(PKG)
-from id_msgs.msg import UniqueIdentifier
+from uuid_msgs.msg import UniqueID
 
 import uuid
 
 def fromMsg(msg):
-    """Create UUID object from UniqueIdentifier message.
+    """Create UUID object from UniqueID message.
 
-    :param msg: `id_msgs/UniqueIdentifier`_ message.
+    :param msg: `id_msgs/UniqueID`_ message.
     :returns: standard Python :class:`uuid.UUID` object.
     """
     return uuid.UUID(bytes = msg.uuid)
@@ -87,8 +87,8 @@ def generate(url, id=None):
         url += str(int(id))
     return uuid.uuid5(uuid.NAMESPACE_URL, url)
 
-def makeUniqueIdentifier(url, id=None):
-    """Create a UniqueIdentifier message for *id* number in name space *ns*.
+def makeUniqueID(url, id=None):
+    """Create a UniqueID message for *id* number in name space *ns*.
 
     .. deprecated:: 0.2.0
        Use :py:func:`toMsg`, instead.
@@ -96,10 +96,10 @@ def makeUniqueIdentifier(url, id=None):
     :param url: URL indicating generating source
     :param id: (optional) identifier, unique within URL name space
     :type  id: int or string convertible to int
-    :returns: `id_msgs/UniqueIdentifier`_ message
+    :returns: `id_msgs/UniqueID`_ message
     :raises: :exc:`ValueError` if *id* not convertible to int.
     """
-    return UniqueIdentifier(uuid = str(generate(url, id)))
+    return UniqueID(uuid = str(generate(url, id)))
 
 def random():
     """Create a random UUID object.
@@ -109,17 +109,17 @@ def random():
     return uuid.uuid4()
 
 def toMsg(uuid_obj):
-    """Create a UniqueIdentifier message from a UUID object.
+    """Create a UniqueID message from a UUID object.
 
     :param uuid_obj: standard Python :class:`uuid.UUID` object.
-    :returns: `id_msgs/UniqueIdentifier`_ message
+    :returns: `id_msgs/UniqueID`_ message
     """
-    return UniqueIdentifier(uuid = uuid_obj.bytes)
+    return UniqueID(uuid = uuid_obj.bytes)
 
 def toString(msg):
-    """Create the canonical string representation for a UniqueIdentifier message.
+    """Create the canonical string representation for a UniqueID message.
 
-    :param msg: `id_msgs/UniqueIdentifier`_ message.
+    :param msg: `id_msgs/UniqueID`_ message.
     :returns: canonical UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'
     """
     return str(uuid.UUID(bytes = msg.uuid))

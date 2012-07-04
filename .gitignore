@@ -8,4 +8,4 @@
 TAGS
 build/
 msg_gen/
-src/id_msgs/msg/
+uuid_msgs/src

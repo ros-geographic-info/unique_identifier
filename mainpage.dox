@@ -1,9 +1,0 @@
-/**
-\mainpage
-\htmlinclude manifest.html
-
-This package contains ROS messages for Universally Unique Identifiers (UUIDs).
-
-It also provides Python and C++ interfaces for managing UUIDs.
-
-*/
