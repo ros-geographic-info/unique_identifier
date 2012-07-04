@@ -38,7 +38,7 @@ Generate universally unique identifiers and messages.
 Various ROS components use universally unique identifiers
 (UUID_). This module provides functions for working with a common
 `uuid_msgs/UniqueID`_ message definition, with a thin ROS
-wrapper using the standard Python :py:class:`uuid.UUID` class.
+wrapper around the standard Python :py:class:`uuid.UUID` class.
 
 .. _`uuid_msgs/UniqueID`: http://ros.org/doc/api/uuid_msgs/html/msg/UniqueID.html
 .. _`RFC 4122`: http://tools.ietf.org/html/rfc4122.html
@@ -61,7 +61,7 @@ def fromMsg(msg):
     return uuid.UUID(bytes = msg.uuid)
 
 def generate(url, id=None):
-    """ Generate UUID_ from URL.
+    """ Generate UUID from URL.
 
     Matching features within each name space must yield the same UUID.
     The method used is `RFC 4122`_ variant 5, computing the SHA-1 hash
@@ -86,20 +86,6 @@ def generate(url, id=None):
     if id is not None:
         url += str(int(id))
     return uuid.uuid5(uuid.NAMESPACE_URL, url)
-
-def makeUniqueID(url, id=None):
-    """Create a UniqueID message for *id* number in name space *ns*.
-
-    .. deprecated:: 0.2.0
-       Use :py:func:`toMsg`, instead.
-
-    :param url: URL indicating generating source
-    :param id: (optional) identifier, unique within URL name space
-    :type  id: int or string convertible to int
-    :returns: `uuid_msgs/UniqueID`_ message
-    :raises: :exc:`ValueError` if *id* not convertible to int.
-    """
-    return UniqueID(uuid = str(generate(url, id)))
 
 def random():
     """Create a random UUID object.
