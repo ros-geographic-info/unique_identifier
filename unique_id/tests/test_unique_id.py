@@ -35,7 +35,7 @@ class TestPythonUUID(unittest.TestCase):
         # MUST yield same result as C++ fromURL() function:
         self.assertEqual(str(x), 'ef362ac8-9659-5481-b954-88e9b741c8f9')
 
-    def test_same_id_different_namespace(self):
+    def test_same_id_different_osm_namespace(self):
         x = fromURL('http://openstreetmap.org/node/1')
         y = fromURL('http://openstreetmap.org/way/1')
         self.assertNotEqual(x, y)

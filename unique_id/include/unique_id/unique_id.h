@@ -66,6 +66,13 @@
 namespace unique_id
 {
 
+/** Instantiate some useful boost UUID generator functions. */
+boost::uuids::string_generator fromString;
+boost::uuids::random_generator fromRand;
+
+const std::string url_namespace("6ba7b811-9dad-11d1-80b4-00c04fd430c8");
+const boost::uuids::uuid url_namespace_uuid = fromString(url_namespace);
+
 /** @brief Create UUID object from UniqueID message.
  *
  *  @param msg uuid_msgs/UniqueID message.
@@ -84,8 +91,7 @@ boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
  */
 boost::uuids::uuid fromRandom(void)
 {
-  static boost::uuids::random_generator rand;
-  return rand();
+  return fromRand();
 }
 
 /** @brief Generate UUID from Uniform Resource Locator.
@@ -109,8 +115,6 @@ boost::uuids::uuid fromRandom(void)
  */
 boost::uuids::uuid fromURL(std::string const &url)
 {
-  // initialize to {6ba7b810-9dad-11d1-80b4-00c04fd430c8}?
-  static boost::uuids::uuid url_namespace_uuid;
   static boost::uuids::name_generator gen(url_namespace_uuid);
   return gen(url);
 }
