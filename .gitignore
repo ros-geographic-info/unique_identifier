@@ -6,6 +6,7 @@
 *.tar.gz
 *~
 TAGS
+bin/
 build/
 msg_gen/
 uuid_msgs/src
