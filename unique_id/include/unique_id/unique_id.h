@@ -66,12 +66,20 @@
 namespace unique_id
 {
 
-/** Instantiate some useful boost UUID generator functions. */
-boost::uuids::string_generator fromString;
-boost::uuids::random_generator fromRand;
+/** Instantiate boost string UUID generator. */
+boost::uuids::string_generator genString;
 
+/** Instantiate boost random UUID generator. */
+boost::uuids::random_generator genRandom;
+
+/** RFC 4122 namespace for URL identifiers. */
 const std::string url_namespace("6ba7b811-9dad-11d1-80b4-00c04fd430c8");
-const boost::uuids::uuid url_namespace_uuid = fromString(url_namespace);
+
+/** RFC 4122 UUID for URL identifiers. */
+const boost::uuids::uuid url_namespace_uuid = genString(url_namespace);
+
+/** Instantiate boost URL name UUID generator. */
+boost::uuids::name_generator genURL(url_namespace_uuid);
 
 /** @brief Create UUID object from UniqueID message.
  *
@@ -87,17 +95,17 @@ boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
 
 /** @brief Generate a random UUID object.
  *
- *  @returns type 4 boost::uuids::uuid` object.
+ *  @returns type 4 boost::uuids::uuid object.
  */
 boost::uuids::uuid fromRandom(void)
 {
-  return fromRand();
+  return genRandom();
 }
 
 /** @brief Generate UUID from Uniform Resource Locator.
  *
  *  @param url URL for identifier creation.
- *  @returns type 5 boost::uuids::uuid` object.
+ *  @returns type 5 boost::uuids::uuid object.
  *
  *  Matching @a url strings must yield the same UUID. Different @a url
  *  strings will almost certainly generate different UUIDs. The method
@@ -115,8 +123,7 @@ boost::uuids::uuid fromRandom(void)
  */
 boost::uuids::uuid fromURL(std::string const &url)
 {
-  static boost::uuids::name_generator gen(url_namespace_uuid);
-  return gen(url);
+  return genURL(url);
 }
 
 /** @brief Create a UniqueID message from a UUID object.
