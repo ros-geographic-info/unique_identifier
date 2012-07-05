@@ -38,18 +38,7 @@
 
 /** @file
 
-    @brief Generate universally unique identifiers and messages.
-
-    Various ROS components use universally unique identifiers. This
-    header provides functions for working with a common @c
-    uuid_msgs/UniqueID message, and the @c boost::uuid class.
-
-    Programmers are free to create UUID objects using any approved RFC
-    4122 method. The boost uuid module supports them all.
-
-    Many ROS applications need either a random (@c fromRandom()) or a
-    name-based UUID. The @c fromURL() function generates a name-based
-    UUID from a URL string.
+    @brief Helper functions for universally unique identifiers and messages.
 
     @author Jack O'Quin
  */
@@ -63,6 +52,28 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 
+
+/** @brief C++ namespace for unique_id helper functions.
+ *
+ *  Various ROS components use universally unique identifiers. This
+ *  header provides functions for working with a common
+ *  uuid_msgs/UniqueID message, and the boost uuid class.
+ *
+ *   - http://en.wikipedia.org/wiki/Uuid
+ *   - http://tools.ietf.org/html/rfc4122.html
+ *   - http://www.boost.org/doc/libs/1_42_0/libs/uuid/uuid.html
+ *
+ *  Programmers are free to create UUID objects using any approved RFC
+ *  4122 method. The boost uuid interface supports them all.
+ *
+ *  Functions in this namespace provide simple APIs, not requiring
+ *  detailed knowledge of RFC 4122 or the boost uuid interface.  ROS
+ *  applications are likely to need either a random or a name-based
+ *  UUID.
+ *
+ *   - fromRandom() generates a random UUID.
+ *   - fromURL() generates a name-based UUID from a URL string.
+ */
 namespace unique_id
 {
 
@@ -73,7 +84,7 @@ boost::uuids::string_generator genString;
 boost::uuids::random_generator genRandom;
 
 /** RFC 4122 namespace for URL identifiers. */
-const std::string url_namespace("6ba7b811-9dad-11d1-80b4-00c04fd430c8");
+const std::string url_namespace = "6ba7b811-9dad-11d1-80b4-00c04fd430c8";
 
 /** RFC 4122 UUID for URL identifiers. */
 const boost::uuids::uuid url_namespace_uuid = genString(url_namespace);
@@ -96,6 +107,10 @@ boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
 /** @brief Generate a random UUID object.
  *
  *  @returns type 4 boost::uuids::uuid object.
+ *
+ *  Different calls to this function at any time or place will almost
+ *  certainly generate different UUIDs. The method used is RFC 4122
+ *  variant 4.
  */
 boost::uuids::uuid fromRandom(void)
 {
@@ -109,17 +124,16 @@ boost::uuids::uuid fromRandom(void)
  *
  *  Matching @a url strings must yield the same UUID. Different @a url
  *  strings will almost certainly generate different UUIDs. The method
- *  used is `RFC 4122`_ variant 5, computing the SHA-1 hash of the @a
+ *  used is RFC 4122 variant 5, computing the SHA-1 hash of the @a
  *  url.
  *
- *  For example, Open Street Map identifiers are encoded like this:
+ *  For example, Open Street Map identifiers are encoded like this,
+ *  with decimal representations of the integer OSM node, way, or
+ *  relation identifiers appended to the URL:
  *
- *    fromURL("http://openstreetmap.org/node/" + str(node_id))
- *    fromURL("http://openstreetmap.org/way/" + str(way_id))
- *    fromURL("http://openstreetmap.org/relation/" + str(rel_id))
- *
- *  Decimal representations of the integer OSM node, way, or relation
- *  identifiers are appended to the URL.
+ *   - fromURL("http://openstreetmap.org/node/123456789")
+ *   - fromURL("http://openstreetmap.org/way/6543210")
+ *   - fromURL("http://openstreetmap.org/relation/999999")
  */
 boost::uuids::uuid fromURL(std::string const &url)
 {

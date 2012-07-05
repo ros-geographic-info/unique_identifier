@@ -28,6 +28,16 @@ TEST(BoostUUID, fromRandom)
     }
 }
 
+TEST(BoostUUID, emptyURL)
+{
+  std::string s;
+  uuid x = fromURL(s);
+  uuid y = fromURL(s);
+  EXPECT_EQ(x, y);
+  // MUST yield same result as Python fromURL() function:
+  EXPECT_EQ(toString(x), "1b4db7eb-4057-5ddf-91e0-36dec72071f5");
+}
+
 TEST(BoostUUID, sameURL)
 {
   std::string s("http://openstreetmap.org/node/1");

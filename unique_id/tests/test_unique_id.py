@@ -26,6 +26,15 @@ class TestPythonUUID(unittest.TestCase):
                 self.assertNotEqual(uu[i], uu[j])
 
     # UUID generation from URL tests
+    def test_empty_url(self):
+        x = fromURL('')
+        self.assertEqual(type(x), uuid.UUID)
+        y = fromURL('')
+        self.assertEqual(type(y), uuid.UUID)
+        self.assertEqual(x, y)
+        # MUST yield same result as C++ fromURL() function:
+        self.assertEqual(str(x), "1b4db7eb-4057-5ddf-91e0-36dec72071f5")
+
     def test_same_url(self):
         x = fromURL('http://openstreetmap.org/node/1')
         self.assertEqual(type(x), uuid.UUID)
