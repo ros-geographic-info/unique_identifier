@@ -88,6 +88,33 @@ boost::uuids::uuid fromRandom(void)
   return rand();
 }
 
+/** @brief Generate UUID from Uniform Resource Locator.
+ *
+ *  @param url URL for identifier creation.
+ *  @returns type 5 boost::uuids::uuid` object.
+ *
+ *  Matching @a url strings must yield the same UUID. Different @a url
+ *  strings will almost certainly generate different UUIDs. The method
+ *  used is `RFC 4122`_ variant 5, computing the SHA-1 hash of the @a
+ *  url.
+ *
+ *  For example, Open Street Map identifiers are encoded like this:
+ *
+ *    fromURL("http://openstreetmap.org/node/" + str(node_id))
+ *    fromURL("http://openstreetmap.org/way/" + str(way_id))
+ *    fromURL("http://openstreetmap.org/relation/" + str(rel_id))
+ *
+ *  Decimal representations of the integer OSM node, way, or relation
+ *  identifiers are appended to the URL.
+ */
+boost::uuids::uuid fromURL(std::string const &url)
+{
+  // initialize to {6ba7b810-9dad-11d1-80b4-00c04fd430c8}?
+  static boost::uuids::uuid url_namespace_uuid;
+  static boost::uuids::name_generator gen(url_namespace_uuid);
+  return gen(url);
+}
+
 /** @brief Create a UniqueID message from a UUID object.
  *
  *  @param uu boost::uuids::uuid object.

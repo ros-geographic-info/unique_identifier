@@ -28,6 +28,33 @@ TEST(BoostUUID, fromRandom)
     }
 }
 
+TEST(BoostUUID, sameURL)
+{
+  std::string s("http://openstreetmap.org/node/1");
+  uuid x = fromURL(s);
+  uuid y = fromURL(s);
+  EXPECT_EQ(x, y);
+#if 0
+  // Currently broken (requires correct namespace)...
+  // MUST yield same result as Python fromURL() function:
+  EXPECT_EQ(boost::uuids::to_string(x),
+            "ef362ac8-9659-5481-b954-88e9b741c8f9");
+#endif
+}
+
+TEST(BoostUUID, actualOsmNode)
+{
+  uuid x = fromURL("http://openstreetmap.org/node/1");
+  uuid y = fromURL("http://openstreetmap.org/node/152370223");
+  EXPECT_NE(x, y);
+#if 0
+  // Currently broken (requires correct namespace)...
+  // MUST yield same result as Python fromURL() function:
+  EXPECT_EQ(boost::uuids::to_string(y),
+            "8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac");
+#endif
+}
+
 TEST(UniqueID, nilMessage)
 {
   UniqueID x;

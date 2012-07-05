@@ -32,18 +32,21 @@ class TestPythonUUID(unittest.TestCase):
         y = fromURL('http://openstreetmap.org/node/1')
         self.assertEqual(type(y), uuid.UUID)
         self.assertEqual(x, y)
+        # MUST yield same result as C++ fromURL() function:
         self.assertEqual(str(x), 'ef362ac8-9659-5481-b954-88e9b741c8f9')
-        
+
     def test_same_id_different_namespace(self):
         x = fromURL('http://openstreetmap.org/node/1')
         y = fromURL('http://openstreetmap.org/way/1')
         self.assertNotEqual(x, y)
+        # MUST yield same result as C++ fromURL() function:
         self.assertEqual(str(y), 'b3180681-b125-5e41-bd04-3c8b046175b4')
-        
+
     def test_actual_osm_node_id(self):
         x = fromURL('http://openstreetmap.org/node/1')
         y = fromURL('http://openstreetmap.org/node/152370223')
         self.assertNotEqual(x, y)
+        # MUST yield same result as C++ fromURL() function:
         self.assertEqual(str(y), '8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac')
 
     def test_route_segment(self):
@@ -52,6 +55,7 @@ class TestPythonUUID(unittest.TestCase):
         x = fromURL('http://ros.org/wiki/road_network/' + start + '/' + end)
         y = fromURL('http://ros.org/wiki/road_network/' + end + '/' + start)
         self.assertNotEqual(x, y)
+        # MUST yield same result as C++ fromURL() function:
         self.assertEqual(str(x), 'acaa906e-8411-5b45-a446-ccdc2fc39f29')
 
     # UniqueID message generation tests

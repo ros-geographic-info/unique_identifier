@@ -76,7 +76,7 @@ def fromRandom():
     return uuid.uuid4()
 
 def fromURL(url):
-    """ Generate UUID from Uniform Resource Locator.
+    """Generate UUID from Uniform Resource Locator.
 
     :param url: URL for identifier creation.
     :returns: type 5 :class:`uuid.UUID` object.
@@ -88,9 +88,9 @@ def fromURL(url):
 
     For example, Open Street Map identifiers are encoded like this::
 
-        generate('http://openstreetmap.org/node/' + str(node_id))
-        generate('http://openstreetmap.org/way/' + str(way_id))
-        generate('http://openstreetmap.org/relation/ + str(rel_id))
+        fromURL('http://openstreetmap.org/node/' + str(node_id))
+        fromURL('http://openstreetmap.org/way/' + str(way_id))
+        fromURL('http://openstreetmap.org/relation/' + str(rel_id))
 
     Decimal representations of the integer OSM node, way, or relation
     identifiers are appended to the URL.
