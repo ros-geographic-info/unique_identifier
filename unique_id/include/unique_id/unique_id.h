@@ -138,13 +138,23 @@ uuid_msgs::UniqueID toMsg(boost::uuids::uuid const &uu)
   return msg;
 }
 
-/** @brief Create the canonical string representation for a UniqueID message.
+/** @brief Get the canonical string representation for a boost UUID.
  *
- *  @param msg uuid_msgs/UniqueID message.
+ *  @param uu boost::uuids::uuid object.
  *  @returns canonical UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'.
  *
  *  A @c boost::uuids::uuid object yields the same representation via
  *  its @c << operator or @c to_string() function.
+ */
+std::string toString(boost::uuids::uuid const &uu)
+{
+  return boost::uuids::to_string(uu);
+}
+
+/** @brief Get the canonical string representation for a UniqueID message.
+ *
+ *  @param msg uuid_msgs/UniqueID message.
+ *  @returns canonical UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'.
  */
 std::string toString(uuid_msgs::UniqueID const &msg)
 {

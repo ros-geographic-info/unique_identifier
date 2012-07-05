@@ -35,8 +35,7 @@ TEST(BoostUUID, sameURL)
   uuid y = fromURL(s);
   EXPECT_EQ(x, y);
   // MUST yield same result as Python fromURL() function:
-  EXPECT_EQ(boost::uuids::to_string(x),
-            "ef362ac8-9659-5481-b954-88e9b741c8f9");
+  EXPECT_EQ(toString(x), "ef362ac8-9659-5481-b954-88e9b741c8f9");
 }
 
 TEST(BoostUUID, differentOsmNamespace)
@@ -45,8 +44,7 @@ TEST(BoostUUID, differentOsmNamespace)
   uuid y = fromURL("http://openstreetmap.org/way/1");
   EXPECT_NE(x, y);
   // MUST yield same result as Python fromURL() function:
-  EXPECT_EQ(boost::uuids::to_string(y),
-            "b3180681-b125-5e41-bd04-3c8b046175b4");
+  EXPECT_EQ(toString(y), "b3180681-b125-5e41-bd04-3c8b046175b4");
 }
 
 TEST(BoostUUID, actualOsmNode)
@@ -55,8 +53,7 @@ TEST(BoostUUID, actualOsmNode)
   uuid y = fromURL("http://openstreetmap.org/node/152370223");
   EXPECT_NE(x, y);
   // MUST yield same result as Python fromURL() function:
-  EXPECT_EQ(boost::uuids::to_string(y),
-            "8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac");
+  EXPECT_EQ(toString(y), "8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac");
 }
 
 TEST(UniqueID, nilMessage)
