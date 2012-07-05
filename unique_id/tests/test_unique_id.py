@@ -17,12 +17,13 @@ class TestPythonUUID(unittest.TestCase):
 
     # random UUID generation tests
     def test_random_uuids(self):
-        x = fromRandom()
-        self.assertEqual(type(x), uuid.UUID)
-        self.assertEqual(x, x)
-        y = fromRandom()
-        self.assertEqual(type(y), uuid.UUID)
-        self.assertNotEqual(x, y)
+        N = 100
+        uu = []
+        for i in xrange(N):
+            uu.append(fromRandom())
+            self.assertEqual(type(uu[i]), uuid.UUID)
+            for j in xrange(i-1, -1, -1):
+                self.assertNotEqual(uu[i], uu[j])
 
     # UUID generation from URL tests
     def test_same_url(self):

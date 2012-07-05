@@ -15,10 +15,16 @@ typedef boost::uuids::uuid uuid;
 // Test random generator
 TEST(UniqueID, fromRandom)
 {
-  uuid x = fromRandom();
-  EXPECT_EQ(x, x);
-  uuid y = fromRandom();
-  EXPECT_NE(x, y);
+  static const int N = 100;
+  uuid uu[N];
+  for (int i = 0; i < N; ++i)
+    {
+      uu[i] = fromRandom();
+      for (int j = i-1; j >= 0; --j)
+        {
+          EXPECT_NE(uu[i], uu[j]);
+        }
+    }
 }
 
 // Run all the tests that were declared with TEST()
