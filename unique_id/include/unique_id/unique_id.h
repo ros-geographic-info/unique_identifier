@@ -54,19 +54,63 @@
     @author Jack O'Quin
  */
 
+#include <string>
+
 #include <ros/ros.h>
 #include <uuid_msgs/UniqueID.h>
 
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 
 namespace unique_id
 {
 
+/** @brief Create UUID object from UniqueID message.
+ *
+ *  @param msg uuid_msgs/UniqueID message.
+ *  @returns boost::uuids::uuid object.
+ */
+boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
+{
+  boost::uuids::uuid uu;
+  std::copy(msg.uuid.begin(), msg.uuid.end(), uu.begin());
+  return uu;
+}
+
+/** @brief Generate a random UUID object.
+ *
+ *  @returns type 4 boost::uuids::uuid` object.
+ */
 boost::uuids::uuid fromRandom(void)
 {
   static boost::uuids::random_generator rand;
   return rand();
+}
+
+/** @brief Create a UniqueID message from a UUID object.
+ *
+ *  @param uu boost::uuids::uuid object.
+ *  @returns uuid_msgs/UniqueID message.
+ */
+uuid_msgs::UniqueID toMsg(boost::uuids::uuid const &uu)
+{
+  uuid_msgs::UniqueID msg;
+  std::copy(uu.begin(), uu.end(), msg.uuid.begin());
+  return msg;
+}
+
+/** @brief Create the canonical string representation for a UniqueID message.
+ *
+ *  @param msg uuid_msgs/UniqueID message.
+ *  @returns canonical UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'.
+ *
+ *  A @c boost::uuids::uuid object yields the same representation via
+ *  its @c << operator or @c to_string() function.
+ */
+std::string toString(uuid_msgs::UniqueID const &msg)
+{
+  return boost::uuids::to_string(fromMsg(msg));
 }
 
 } // end namespace unique_id

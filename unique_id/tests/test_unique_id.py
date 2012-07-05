@@ -17,7 +17,7 @@ class TestPythonUUID(unittest.TestCase):
 
     # random UUID generation tests
     def test_random_uuids(self):
-        N = 100
+        N = 1000
         uu = []
         for i in xrange(N):
             uu.append(fromRandom())
@@ -77,7 +77,7 @@ class TestPythonUUID(unittest.TestCase):
 
     def test_nil_msg(self):
         x = UniqueID()
-        y = toMsg(uuid.UUID('00000000-0000-0000-0000-000000000000'))
+        y = toMsg(uuid.UUID(hex='00000000-0000-0000-0000-000000000000'))
         self.assertEqual(x, y)
 
     def test_random_msg(self):
