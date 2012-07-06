@@ -83,9 +83,8 @@ TEST(UniqueID, randomMessage)
 TEST(UniqueID, equivalentMessages)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
-  boost::uuids::string_generator gen;
-  UniqueID x = toMsg(uuid(gen(s)));
-  UniqueID y = toMsg(uuid(gen(s)));
+  UniqueID x = toMsg(uuid(genString(s)));
+  UniqueID y = toMsg(uuid(genString(s)));
   EXPECT_EQ(x.uuid, y.uuid);
   EXPECT_EQ(s, toString(y));
 }
@@ -93,8 +92,7 @@ TEST(UniqueID, equivalentMessages)
 TEST(UniqueID, toAndFromMessage)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
-  boost::uuids::string_generator gen;
-  uuid x = uuid(gen(s));
+  uuid x = uuid(genString(s));
   uuid y = fromMsg(toMsg(x));
   EXPECT_EQ(x, y);
 }
@@ -102,8 +100,7 @@ TEST(UniqueID, toAndFromMessage)
 TEST(UniqueID, messageToString)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
-  boost::uuids::string_generator gen;
-  UniqueID x = toMsg(uuid(gen(s)));
+  UniqueID x = toMsg(uuid(genString(s)));
   std::string y = toString(x);
   EXPECT_EQ(s, y);
 }
