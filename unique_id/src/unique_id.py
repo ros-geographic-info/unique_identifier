@@ -33,7 +33,7 @@
 """
 .. module:: unique_id
 
-Generate universally unique identifiers and messages.
+Python module for unique_id helper functions.
 
 Various ROS components use universally unique identifiers
 (UUID_). This module provides functions for working with a common
@@ -44,9 +44,12 @@ Programmers are free to create UUID objects using any approved `RFC
 4122`_ method. The standard Python :py:mod:`uuid` module supports them
 all.
 
-Many ROS applications need either a random (:func:`fromRandom`) or a
-name-based UUID. The :func:`fromURL` function generates a name-based
-UUID from a URL string.
+Functions in this module provide simple APIs, not requiring detailed
+knowledge of `RFC 4122`_ or the :py:mod:`uuid` interface.  ROS
+applications are likely to need either a random or a name-based UUID.
+
+ * :func:`fromRandom` generates a random UUID.
+ * :func:`fromURL` generates a name-based UUID from a URL string.
 
 .. _`uuid_msgs/UniqueID`: http://ros.org/doc/api/uuid_msgs/html/msg/UniqueID.html
 .. _`RFC 4122`: http://tools.ietf.org/html/rfc4122.html
@@ -72,6 +75,10 @@ def fromRandom():
     """Generate a random UUID object.
 
     :returns: type 4 :class:`uuid.UUID` object.
+
+    Different calls to this function at any time or place will almost
+    certainly generate different UUIDs. The method used is `RFC 4122`_
+    variant 4.
     """
     return uuid.uuid4()
 
@@ -86,14 +93,17 @@ def fromURL(url):
     used is `RFC 4122`_ variant 5, computing the SHA-1 hash of the
     *url*.
 
-    For example, Open Street Map identifiers are encoded like this::
+    For any given *url*, this function returns the same UUID as the
+    corresponding C++ `unique_id::fromURL()` function.
+
+    For example, Open Street Map identifiers are encoded like this,
+    with decimal representations of the integer OSM node, way, or
+    relation identifiers appended to the URL::
 
         fromURL('http://openstreetmap.org/node/' + str(node_id))
         fromURL('http://openstreetmap.org/way/' + str(way_id))
         fromURL('http://openstreetmap.org/relation/' + str(rel_id))
 
-    Decimal representations of the integer OSM node, way, or relation
-    identifiers are appended to the URL.
     """
     return uuid.uuid5(uuid.NAMESPACE_URL, url)
 

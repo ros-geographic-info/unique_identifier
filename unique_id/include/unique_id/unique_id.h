@@ -127,6 +127,9 @@ boost::uuids::uuid fromRandom(void)
  *  used is RFC 4122 variant 5, computing the SHA-1 hash of the @a
  *  url.
  *
+ *  For any given @a url, this function returns the same UUID as the
+ *  corresponding Python @c unique_id.fromURL() function.
+ *
  *  For example, Open Street Map identifiers are encoded like this,
  *  with decimal representations of the integer OSM node, way, or
  *  relation identifiers appended to the URL:
