@@ -124,4 +124,4 @@ def toString(msg):
     A :class:`uuid.UUID` object yields the same representation via the
     :py:func:`str` function.
     """
-    return str(uuid.UUID(bytes = msg.uuid))
+    return str(fromMsg(msg))
