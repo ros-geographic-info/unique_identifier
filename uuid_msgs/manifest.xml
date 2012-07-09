@@ -9,4 +9,6 @@
   <review status="experimental" notes=""/>
   <url>http://ros.org/wiki/uuid_msgs</url>
 
+  <depend package="std_msgs" />
+
 </package>

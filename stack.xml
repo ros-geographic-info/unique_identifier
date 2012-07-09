@@ -18,6 +18,7 @@
   <build_depends>roscpp_core</build_depends>
   -->
 
-  <depends>roscpp_core</depends>
+  <depends>ros</depends>
+  <depends>ros_comm</depends>
 
 </stack>
