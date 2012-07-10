@@ -1,6 +1,5 @@
 <stack>
   <name>unique_identifier</name>
-  <version>0.2.0</version>
   <description brief="Universally unique identifiers">
     ROS messages and interfaces for universally unique identifiers.
   </description>
