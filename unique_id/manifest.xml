@@ -9,6 +9,7 @@
   <review status="experimental" notes=""/>
   <url>http://ros.org/wiki/unique_id</url>
 
+  <depend package="roscpp" />
   <depend package="rospy"/>
   <depend package="rosunit"/>
   <depend package="uuid_msgs" />
