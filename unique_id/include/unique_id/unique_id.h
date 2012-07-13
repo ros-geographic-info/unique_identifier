@@ -124,6 +124,17 @@ boost::uuids::uuid fromRandom(void)
   return genRandom();
 }
 
+/** @brief Generate UUID from canonical hex string.
+ *
+ *  @param string containing canonical hex representation
+ *  ("01234567-89ab-cdef-0123-456789abcdef").
+ *  @returns corresponding boost::uuids::uuid object.
+ */
+boost::uuids::uuid fromString(std::string const &str)
+{
+  return genString(str);
+}
+
 /** @brief Generate UUID from Uniform Resource Locator.
  *
  *  @param url URL for identifier creation.
