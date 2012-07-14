@@ -66,6 +66,91 @@ TEST(BoostUUID, actualOsmNode)
   EXPECT_EQ(toString(y), "8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac");
 }
 
+TEST(BoostUUID, fromString)
+{
+  std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
+  std::string r = toString(fromString(s));
+  EXPECT_EQ(s, r);
+}
+
+TEST(BoostUUID, fromHexString)
+{
+  std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
+  std::string s_hex("da7c242f2efe5175996149cc621b80b9");
+  std::string r = toString(fromString(s_hex));
+  EXPECT_EQ(s, r);
+}
+
+TEST(BoostUUID, fromBracesString)
+{
+  std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
+  std::string s_braces = "{" + s + "}";
+  std::string r = toString(fromString(s_braces));
+  EXPECT_EQ(s, r);
+}
+
+TEST(BoostUUID, fromUrnString)
+{
+  // This documents boost 1.46.1 behavior, but is an undefined
+  // fromString() input, not really a valid test case.
+  std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
+  std::string s_urn = "urn:uuid:" + s;
+  std::string r = toString(fromString(s_urn));
+  EXPECT_NE(s, r);
+}
+
+TEST(BoostUUID, fromTooLongString)
+{
+  // This documents boost 1.46.1 behavior, but is an undefined
+  // fromString() input, not really a valid test case.
+  std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
+  std::string s_too_long = s + "-0001";
+  std::string r = toString(fromString(s_too_long));
+  EXPECT_EQ(s, r);
+}
+
+TEST(BoostUUID, fromTooShortString)
+{
+  // This documents boost 1.46.1 behavior, but is an undefined
+  // fromString() input, not really a valid test case.
+  std::string s("da7c242f-2efe-5175-9961-49cc621b80");
+  try
+    {
+      uuid x = fromString(s);
+      FAIL();                           // expected exception not thrown
+      EXPECT_NE(toString(x), s);
+    }
+  catch (std::runtime_error &e)
+    {
+      EXPECT_EQ(e.what(), std::string("invalid uuid string"));
+    }
+  catch (...)
+    {
+      FAIL();                           // unexpected exception
+    }
+}
+
+TEST(BoostUUID, fromBogusString)
+{
+  // This documents boost 1.46.1 behavior, but is an undefined
+  // fromString() input, not really a valid test case.
+  std::string s("Invalid UUID string");
+  try
+    {
+      uuid x = fromString(s);
+      FAIL();                           // expected exception not thrown
+      EXPECT_NE(toString(x), s);
+    }
+  catch (std::runtime_error &e)
+    {
+      EXPECT_EQ(e.what(), std::string("invalid uuid string"));
+    }
+  catch (...)
+    {
+      FAIL();                           // unexpected exception
+    }
+}
+
 TEST(UniqueID, nilMessage)
 {
   UniqueID x;
