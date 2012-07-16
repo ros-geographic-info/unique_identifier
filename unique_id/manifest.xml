@@ -6,7 +6,7 @@
   </description>
   <author>Jack O'Quin</author>
   <license>BSD</license>
-  <review status="experimental" notes=""/>
+  <review status="API Reviewed" notes="2012-07-06"/>
   <url>http://ros.org/wiki/unique_id</url>
 
   <depend package="roscpp" />
