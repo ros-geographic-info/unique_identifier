@@ -2,7 +2,7 @@
 /*********************************************************************
 * Software License Agreement (BSD License)
 *
-*  Copyright (C) 2011 Jack O'Quin
+*  Copyright (C) 2012 Jack O'Quin
 *  All rights reserved.
 *
 *  Redistribution and use in source and binary forms, with or without
@@ -45,13 +45,13 @@
 
 #include <string>
 
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
+
 #include <ros/ros.h>
 #include <uuid_msgs/UniqueID.h>
 
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
-
+#include <unique_id/impl/unique_id.h> // private implementation details
 
 /** @brief C++ namespace for unique_id helper functions.
  *
@@ -77,28 +77,6 @@
 namespace unique_id
 {
 
-/** Instantiate boost string UUID generator.
- *
- *  May be called as a function:
- *
- *  @param string containing canonical hex representation
- *  ("01234567-89ab-cdef-0123-456789abcdef").
- *  @returns corresponding boost::uuids::uuid object.
- */
-boost::uuids::string_generator genString;
-
-/** Instantiate boost random UUID generator. */
-boost::uuids::random_generator genRandom;
-
-/** RFC 4122 namespace for URL identifiers. */
-const std::string url_namespace = "6ba7b811-9dad-11d1-80b4-00c04fd430c8";
-
-/** RFC 4122 UUID for URL identifiers. */
-const boost::uuids::uuid url_namespace_uuid = genString(url_namespace);
-
-/** Instantiate boost URL name UUID generator. */
-boost::uuids::name_generator genURL(url_namespace_uuid);
-
 /** @brief Create UUID object from UniqueID message.
  *
  *  @param msg uuid_msgs/UniqueID message.
@@ -121,7 +99,7 @@ boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
  */
 boost::uuids::uuid fromRandom(void)
 {
-  return genRandom();
+  return impl::genRandom();
 }
 
 /** @brief Generate UUID from canonical hex string.
@@ -147,7 +125,7 @@ boost::uuids::uuid fromRandom(void)
  */
 boost::uuids::uuid fromString(std::string const &str)
 {
-  return genString(str);
+  return impl::genString(str);
 }
 
 /** @brief Generate UUID from Uniform Resource Identifier.
@@ -173,7 +151,7 @@ boost::uuids::uuid fromString(std::string const &str)
  */
 boost::uuids::uuid fromURL(std::string const &url)
 {
-  return genURL(url);
+  return impl::genURL(url);
 }
 
 /** @brief Create a UniqueID message from a UUID object.
