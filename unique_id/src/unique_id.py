@@ -115,11 +115,11 @@ def toMsg(uuid_obj):
     """
     return UniqueID(uuid = uuid_obj.bytes)
 
-def toString(msg):
-    """Get the canonical string representation for a UniqueID message.
+def toHexString(msg):
+    """Get the canonical hexadecimal string representation for a UniqueID message.
 
     :param msg: `uuid_msgs/UniqueID`_ message.
-    :returns: canonical UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'.
+    :returns: UUID hex string: '01234567-89ab-cdef-0123-456789abcdef'.
 
     A :class:`uuid.UUID` object yields the same representation via the
     :py:func:`str` function.

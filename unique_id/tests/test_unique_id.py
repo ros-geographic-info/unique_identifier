@@ -70,13 +70,15 @@ class TestPythonUUID(unittest.TestCase):
     # UniqueID message generation tests
     def test_msg_creation(self):
         msg = toMsg(fromURL('http://openstreetmap.org/node/152370223'))
-        self.assertEqual(toString(msg), '8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac')
+        self.assertEqual(toHexString(msg),
+                         '8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac')
         
     def test_msg_same_id_different_namespace(self):
         x = toMsg(fromURL('http://openstreetmap.org/node/1'))
         y = toMsg(fromURL('http://openstreetmap.org/way/1'))
         self.assertNotEqual(x, y)
-        self.assertEqual(toString(y), 'b3180681-b125-5e41-bd04-3c8b046175b4')
+        self.assertEqual(toHexString(y),
+                         'b3180681-b125-5e41-bd04-3c8b046175b4')
 
     def test_msg_route_segment(self):
         start = 'da7c242f-2efe-5175-9961-49cc621b80b9'
@@ -86,7 +88,8 @@ class TestPythonUUID(unittest.TestCase):
         y = toMsg(fromURL('http://ros.org/wiki/road_network/'
                           + end + '/' + start))
         self.assertNotEqual(x, y)
-        self.assertEqual(toString(x), 'acaa906e-8411-5b45-a446-ccdc2fc39f29')
+        self.assertEqual(toHexString(x),
+                         'acaa906e-8411-5b45-a446-ccdc2fc39f29')
 
     def test_nil_msg(self):
         x = UniqueID()
@@ -103,7 +106,7 @@ class TestPythonUUID(unittest.TestCase):
         x = toMsg(uuid.UUID(s))
         y = toMsg(uuid.UUID(s))
         self.assertEqual(x, y)
-        self.assertEqual(s, toString(y))
+        self.assertEqual(s, toHexString(y))
 
     def test_to_and_from_msg(self):
         x = uuid.UUID('da7c242f-2efe-5175-9961-49cc621b80b9')
@@ -114,7 +117,7 @@ class TestPythonUUID(unittest.TestCase):
     def test_msg_to_string(self):
         s = 'da7c242f-2efe-5175-9961-49cc621b80b9'
         x = toMsg(uuid.UUID(s))
-        y = toString(x)
+        y = toHexString(x)
         self.assertEqual(s, y)
         self.assertEqual(type(y), str)
 

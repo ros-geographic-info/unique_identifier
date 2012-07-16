@@ -116,14 +116,14 @@ boost::uuids::uuid fromRandom(void)
  *  32 hexadecimal digits.
  *
  *  The @a str can be any accepted by the boost uuid string generator,
- *  but that is not well-defined. The format produced by toString()
+ *  but that is not well-defined. The format produced by toHexString()
  *  works reliably: "01234567-89ab-cdef-0123-456789abcdef".
  *
  *  @warning Strings not accepted by boost may produce undefined
  *  results: perhaps throwing a @c std::runtime_error exception, or
  *  silently ignoring parts of the string.
  */
-boost::uuids::uuid fromString(std::string const &str)
+boost::uuids::uuid fromHexString(std::string const &str)
 {
   return impl::genString(str);
 }
@@ -174,7 +174,7 @@ uuid_msgs::UniqueID toMsg(boost::uuids::uuid const &uu)
  *  A @c boost::uuids::uuid object yields the same representation via
  *  its @c << operator or @c to_string() function.
  */
-std::string toString(boost::uuids::uuid const &uu)
+std::string toHexString(boost::uuids::uuid const &uu)
 {
   return boost::uuids::to_string(uu);
 }
@@ -184,7 +184,7 @@ std::string toString(boost::uuids::uuid const &uu)
  *  @param msg uuid_msgs/UniqueID message.
  *  @returns canonical UUID hex string: "01234567-89ab-cdef-0123-456789abcdef".
  */
-std::string toString(uuid_msgs::UniqueID const &msg)
+std::string toHexString(uuid_msgs::UniqueID const &msg)
 {
   return boost::uuids::to_string(fromMsg(msg));
 }
