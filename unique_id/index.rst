@@ -1,5 +1,5 @@
-unique_id: ROS UUID support
-===========================
+unique_id: ROS universally unique identifier support
+====================================================
 
 Contents:
 

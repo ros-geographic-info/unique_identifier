@@ -112,12 +112,11 @@ boost::uuids::uuid fromRandom(void)
  *  for any Uniform Resource Identifier.
  *
  *  The canonical hex string is a human-readable representation of a
- *  correctly-formatted sixteen-byte UUID. It should contain exactly
- *  32 hexadecimal digits.
- *
- *  The @a str can be any accepted by the boost uuid string generator,
- *  but that is not well-defined. The format produced by toHexString()
- *  works reliably: "01234567-89ab-cdef-0123-456789abcdef".
+ *  correctly-formatted sixteen-byte UUID. In addition to the dashes,
+ *  it should contain exactly 32 hexadecimal digits.  The @a str can
+ *  be any accepted by the boost uuid string generator, but that is
+ *  not well-defined. The format produced by toHexString() works
+ *  reliably: "01234567-89ab-cdef-0123-456789abcdef".
  *
  *  @warning Strings not accepted by boost may produce undefined
  *  results: perhaps throwing a @c std::runtime_error exception, or
