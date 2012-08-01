@@ -6,5 +6,8 @@ rosbuild_init()
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 # unit tests
+rosbuild_add_boost_directories()
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+rosbuild_add_gtest(test_unique_id tests/test_unique_id.cpp)
 rosbuild_add_pyunit(tests/test_unique_id.py)
 
