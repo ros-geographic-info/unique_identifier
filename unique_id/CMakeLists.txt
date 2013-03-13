@@ -1,13 +1,23 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
-rosbuild_init()
+cmake_minimum_required(VERSION 2.8.3)
+project(unique_id)
 
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy uuid_msgs)
+find_package(Boost REQUIRED)
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+#add_dependencies(${PROJECT_NAME} uuid_msgs_gencpp)
+
+catkin_package()
+catkin_python_setup()
+
+install(DIRECTORY include/${PROJECT_NAME}/
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
 
 # unit tests
-rosbuild_add_boost_directories()
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-rosbuild_add_gtest(test_unique_id tests/test_unique_id.cpp)
-rosbuild_add_pyunit(tests/test_unique_id.py)
+catkin_add_gtest(test_unique_id tests/test_unique_id.cpp)
+target_link_libraries(test_unique_id
+  ${Boost_LIBRARIES}
+  ${catkin_LIBRARIES})
+catkin_add_nosetests(tests/test_unique_id.py)
 
