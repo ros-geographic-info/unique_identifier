@@ -5,10 +5,8 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy uuid_msgs)
 find_package(Boost REQUIRED)
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-#add_dependencies(${PROJECT_NAME} uuid_msgs_gencpp)
-
-catkin_package()
 catkin_python_setup()
+catkin_package()
 
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
@@ -20,4 +18,3 @@ target_link_libraries(test_unique_id
   ${Boost_LIBRARIES}
   ${catkin_LIBRARIES})
 catkin_add_nosetests(tests/test_unique_id.py)
-
