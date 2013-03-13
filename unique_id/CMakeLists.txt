@@ -6,7 +6,10 @@ find_package(Boost REQUIRED)
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 catkin_python_setup()
-catkin_package()
+catkin_package(
+  INCLUDE_DIRS include
+  CATKIN_DEPENDS uuid_msgs
+  DEPENDS Boost)
 
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
