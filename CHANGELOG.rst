@@ -5,8 +5,8 @@
  * Convert to catkin for Hydro
  * Make **unique_identifier** into a metapackage, depending on the
    **uuid_msgs** and **unique_id** packages. It should only be used
-   *for dependencies in dry stacks. Wet packages will depend directly
-   *on *uuid_msgs** and **unique_id**.
+   for dependencies in dry stacks. Wet packages will depend directly
+   on **uuid_msgs** and **unique_id**.
 
 0.9.0 (2013-01-03)
 ------------------
