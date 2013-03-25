@@ -1,8 +1,13 @@
 
+1.0.1 (Forthcoming)
+-------------------
+
+ * **unique_id**: fix catkin Python install problem [4]_.
+
 1.0.0 (2013-03-18)
 -------------------
 
- * Convert to catkin for Hydro
+ * Convert to catkin for Hydro [1]_.
  * Make **unique_identifier** into a metapackage, depending on the
    **uuid_msgs** and **unique_id** packages. It should only be used
    for dependencies in dry stacks. Wet packages will depend directly
@@ -22,3 +27,6 @@
  * **uuid_msgs** provides uuid_msgs/UniqueID message.
  * **unique_id** package supports Python interface based on standard
    uuid package, but no C++ API yet.
+
+.. [1] https://github.com/ros-geographic-info/unique_identifier/issues/1
+.. [4] https://github.com/ros-geographic-info/unique_identifier/issues/4
