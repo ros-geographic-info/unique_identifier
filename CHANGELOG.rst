@@ -1,3 +1,6 @@
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Change log for unique_identifier repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1.0.1 (Forthcoming)
 -------------------
@@ -28,5 +31,7 @@
  * **unique_id** package supports Python interface based on standard
    uuid package, but no C++ API yet.
 
-.. [1] https://github.com/ros-geographic-info/unique_identifier/issues/1
-.. [4] https://github.com/ros-geographic-info/unique_identifier/issues/4
+Issues
+======
+.. [1] `issue #1 <https://github.com/ros-geographic-info/unique_identifier/issues/1>`_
+.. [4] `issue #4 <https://github.com/ros-geographic-info/unique_identifier/issues/4>`_
