@@ -57,8 +57,6 @@ applications are likely to need either a random or a name-based UUID.
 
 """
 
-PKG='unique_id'
-import roslib; roslib.load_manifest(PKG)
 from uuid_msgs.msg import UniqueID
 
 import uuid

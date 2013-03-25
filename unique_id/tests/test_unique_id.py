@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-PKG='unique_id'
-import roslib; roslib.load_manifest(PKG)
-
 import sys
 import unittest
 
@@ -123,4 +120,4 @@ class TestPythonUUID(unittest.TestCase):
 
 if __name__ == '__main__':
     import rosunit
-    rosunit.unitrun(PKG, 'test_uuid_py', TestPythonUUID) 
+    rosunit.unitrun('unique_id', 'test_uuid_py', TestPythonUUID) 
