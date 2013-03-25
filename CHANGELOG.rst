@@ -2,7 +2,7 @@
 Change log for unique_identifier repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.1 (Forthcoming)
+1.0.1 (2013-03-25)
 -------------------
 
  * **unique_id**: fix catkin Python install problem [4]_.
