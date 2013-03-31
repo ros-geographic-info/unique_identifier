@@ -57,6 +57,9 @@ applications are likely to need either a random or a name-based UUID.
 
 """
 
+# enable some python3 compatibility options:
+from __future__ import absolute_import, print_function, unicode_literals
+
 from uuid_msgs.msg import UniqueID
 
 import uuid
