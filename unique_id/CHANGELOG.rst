@@ -1,0 +1,29 @@
+Change history
+==============
+
+1.0.1 (2013-03-25)
+-------------------
+
+ * Fix catkin Python install problem (`#4`_).
+
+1.0.0 (2013-03-18)
+-------------------
+
+ * Hydro release.
+ * Convert to catkin (`#1`_).
+
+0.9.0 (2013-01-03)
+------------------
+
+ * Initial release to Groovy.
+ * Add support for C++ interface using boost uuid package.
+
+0.8.0 (2012-07-19)
+------------------
+
+ * Initial release to Fuerte.
+ * Supports Python interface based on standard uuid package, but no
+   C++ API yet.
+
+.. _`#1`: https://github.com/ros-geographic-info/unique_identifier/issues/1
+.. _`#4`: https://github.com/ros-geographic-info/unique_identifier/issues/4

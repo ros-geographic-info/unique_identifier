@@ -7,6 +7,7 @@ Contents:
    :maxdepth: 2
 
    unique_id
+   CHANGELOG
 
 Indices and tables
 ==================
