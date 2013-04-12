@@ -12,6 +12,10 @@
   <author>Jack O'Quin</author>
   <license>BSD</license>
   <url>http://ros.org/wiki/unique_identifier</url>
+  <url type="repository">https://github.com/ros-geographic-info/unique_identifier</url>
+  <url type="bugtracker">https://github.com/ros-geographic-info/unique_identifier/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>unique_id</run_depend>
   <run_depend>uuid_msgs</run_depend>
