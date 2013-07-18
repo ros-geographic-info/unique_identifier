@@ -1,6 +1,11 @@
 Change history
 ==============
 
+1.0.2 (2013-07-18)
+-------------------
+
+ * Add missing metapackage dependency on catkin (`#5`_).
+
 1.0.1 (2013-03-25)
 -------------------
 
@@ -27,3 +32,4 @@ Change history
  * Initial release to Fuerte.
 
 .. _`#1`: https://github.com/ros-geographic-info/unique_identifier/issues/1
+.. _`#5`: https://github.com/ros-geographic-info/unique_identifier/issues/5
