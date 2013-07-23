@@ -1,6 +1,11 @@
 Change history
 ==============
 
+1.0.3 (forthcoming)
+-------------------
+
+ * Make unit tests conditional on ``CATKIN_ENABLE_TESTING``.
+
 1.0.2 (2013-07-18)
 -------------------
 
