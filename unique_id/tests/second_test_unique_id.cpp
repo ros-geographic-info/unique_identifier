@@ -7,7 +7,6 @@
 
 #include <unique_id/unique_id.h>
 
-#if 0
 using namespace unique_id;
 typedef boost::uuids::uuid uuid;
 typedef uuid_msgs::UniqueID UniqueID;
@@ -17,7 +16,7 @@ typedef uuid_msgs::UniqueID UniqueID;
 ///////////////////////////////////////////////////////////////
 
 // Test random generator
-TEST(BoostUUID, fromRandom)
+TEST(BoostUUID2, fromRandom)
 {
   static const int N = 1000;
   uuid uu[N];
@@ -31,7 +30,7 @@ TEST(BoostUUID, fromRandom)
     }
 }
 
-TEST(BoostUUID, emptyURL)
+TEST(BoostUUID2, emptyURL)
 {
   std::string s;
   uuid x = fromURL(s);
@@ -41,7 +40,7 @@ TEST(BoostUUID, emptyURL)
   EXPECT_EQ(toHexString(x), "1b4db7eb-4057-5ddf-91e0-36dec72071f5");
 }
 
-TEST(BoostUUID, sameURL)
+TEST(BoostUUID2, sameURL)
 {
   std::string s("http://openstreetmap.org/node/1");
   uuid x = fromURL(s);
@@ -51,7 +50,7 @@ TEST(BoostUUID, sameURL)
   EXPECT_EQ(toHexString(x), "ef362ac8-9659-5481-b954-88e9b741c8f9");
 }
 
-TEST(BoostUUID, differentOsmNamespace)
+TEST(BoostUUID2, differentOsmNamespace)
 {
   uuid x = fromURL("http://openstreetmap.org/node/1");
   uuid y = fromURL("http://openstreetmap.org/way/1");
@@ -60,7 +59,7 @@ TEST(BoostUUID, differentOsmNamespace)
   EXPECT_EQ(toHexString(y), "b3180681-b125-5e41-bd04-3c8b046175b4");
 }
 
-TEST(BoostUUID, actualOsmNode)
+TEST(BoostUUID2, actualOsmNode)
 {
   uuid x = fromURL("http://openstreetmap.org/node/1");
   uuid y = fromURL("http://openstreetmap.org/node/152370223");
@@ -69,14 +68,14 @@ TEST(BoostUUID, actualOsmNode)
   EXPECT_EQ(toHexString(y), "8e0b7d8a-c433-5c42-be2e-fbd97ddff9ac");
 }
 
-TEST(BoostUUID, fromHexString)
+TEST(BoostUUID2, fromHexString)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
   std::string r = toHexString(fromHexString(s));
   EXPECT_EQ(s, r);
 }
 
-TEST(BoostUUID, fromStringNoDashes)
+TEST(BoostUUID2, fromStringNoDashes)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
   std::string s_hex("da7c242f2efe5175996149cc621b80b9");
@@ -84,7 +83,7 @@ TEST(BoostUUID, fromStringNoDashes)
   EXPECT_EQ(s, r);
 }
 
-TEST(BoostUUID, fromBracesString)
+TEST(BoostUUID2, fromBracesString)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
   std::string s_braces = "{" + s + "}";
@@ -92,7 +91,7 @@ TEST(BoostUUID, fromBracesString)
   EXPECT_EQ(s, r);
 }
 
-TEST(BoostUUID, fromUrnString)
+TEST(BoostUUID2, fromUrnString)
 {
   // This documents boost 1.46.1 behavior, but is an undefined
   // fromHexString() input, not really a valid test case.
@@ -102,7 +101,7 @@ TEST(BoostUUID, fromUrnString)
   EXPECT_NE(s, r);
 }
 
-TEST(BoostUUID, fromTooLongString)
+TEST(BoostUUID2, fromTooLongString)
 {
   // This documents boost 1.46.1 behavior, but is an undefined
   // fromHexString() input, not really a valid test case.
@@ -112,7 +111,7 @@ TEST(BoostUUID, fromTooLongString)
   EXPECT_EQ(s, r);
 }
 
-TEST(BoostUUID, fromTooShortString)
+TEST(BoostUUID2, fromTooShortString)
 {
   // This documents boost 1.46.1 behavior, but is an undefined
   // fromHexString() input, not really a valid test case.
@@ -133,7 +132,7 @@ TEST(BoostUUID, fromTooShortString)
     }
 }
 
-TEST(BoostUUID, fromBogusString)
+TEST(BoostUUID2, fromBogusString)
 {
   // This documents boost 1.46.1 behavior, but is an undefined
   // fromHexString() input, not really a valid test case.
@@ -154,21 +153,21 @@ TEST(BoostUUID, fromBogusString)
     }
 }
 
-TEST(UniqueID, nilMessage)
+TEST(UniqueID2, nilMessage)
 {
   UniqueID x;
   UniqueID y = toMsg(uuid());
   EXPECT_EQ(x.uuid, y.uuid);
 }
 
-TEST(UniqueID, randomMessage)
+TEST(UniqueID2, randomMessage)
 {
   UniqueID x;
   UniqueID y = toMsg(fromRandom());
   EXPECT_NE(x.uuid, y.uuid);
 }
 
-TEST(UniqueID, equivalentMessages)
+TEST(UniqueID2, equivalentMessages)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
   UniqueID x = toMsg(fromHexString(s));
@@ -177,7 +176,7 @@ TEST(UniqueID, equivalentMessages)
   EXPECT_EQ(s, toHexString(y));
 }
 
-TEST(UniqueID, toAndFromMessage)
+TEST(UniqueID2, toAndFromMessage)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
   uuid x = uuid(fromHexString(s));
@@ -185,18 +184,10 @@ TEST(UniqueID, toAndFromMessage)
   EXPECT_EQ(x, y);
 }
 
-TEST(UniqueID, messageToString)
+TEST(UniqueID2, messageToString)
 {
   std::string s("da7c242f-2efe-5175-9961-49cc621b80b9");
   UniqueID x = toMsg(fromHexString(s));
   std::string y = toHexString(x);
   EXPECT_EQ(s, y);
 }
-
-// Run all the tests that were declared with TEST()
-int main(int argc, char **argv)
-{
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
-#endif
