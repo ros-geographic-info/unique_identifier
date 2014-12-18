@@ -15,13 +15,5 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 # unit tests
 if (CATKIN_ENABLE_TESTING)
-  message("-- ${PROJECT_NAME} unit testing enabled")
-  catkin_add_gtest(test_unique_id tests/test_unique_id.cpp)
-  add_dependencies(test_unique_id ${catkin_EXPORTED_TARGETS})
-  target_link_libraries(test_unique_id
-                        ${Boost_LIBRARIES}
-                        ${catkin_LIBRARIES})
-  catkin_add_nosetests(tests/test_unique_id.py)
-else ()
-  message("-- ${PROJECT_NAME} unit testing disabled")
-endif (CATKIN_ENABLE_TESTING)
+  add_subdirectory(tests)
+endif()

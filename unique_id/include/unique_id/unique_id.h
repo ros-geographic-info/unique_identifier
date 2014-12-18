@@ -82,7 +82,7 @@ namespace unique_id
  *  @param msg uuid_msgs/UniqueID message.
  *  @returns boost::uuids::uuid object.
  */
-boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
+static inline boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
 {
   boost::uuids::uuid uu;
   std::copy(msg.uuid.begin(), msg.uuid.end(), uu.begin());
@@ -97,7 +97,7 @@ boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
  *  certainly generate different UUIDs. The method used is RFC 4122
  *  variant 4.
  */
-boost::uuids::uuid fromRandom(void)
+static inline boost::uuids::uuid fromRandom(void)
 {
   return impl::genRandom();
 }
@@ -122,7 +122,7 @@ boost::uuids::uuid fromRandom(void)
  *  results: perhaps throwing a @c std::runtime_error exception, or
  *  silently ignoring parts of the string.
  */
-boost::uuids::uuid fromHexString(std::string const &str)
+static inline boost::uuids::uuid fromHexString(std::string const &str)
 {
   return impl::genString(str);
 }
@@ -148,7 +148,7 @@ boost::uuids::uuid fromHexString(std::string const &str)
  *   - fromURL("http://openstreetmap.org/way/6543210")
  *   - fromURL("http://openstreetmap.org/relation/999999")
  */
-boost::uuids::uuid fromURL(std::string const &url)
+static inline boost::uuids::uuid fromURL(std::string const &url)
 {
   return impl::genURL(url);
 }
@@ -158,7 +158,7 @@ boost::uuids::uuid fromURL(std::string const &url)
  *  @param uu boost::uuids::uuid object.
  *  @returns uuid_msgs/UniqueID message.
  */
-uuid_msgs::UniqueID toMsg(boost::uuids::uuid const &uu)
+static inline uuid_msgs::UniqueID toMsg(boost::uuids::uuid const &uu)
 {
   uuid_msgs::UniqueID msg;
   std::copy(uu.begin(), uu.end(), msg.uuid.begin());
@@ -173,7 +173,7 @@ uuid_msgs::UniqueID toMsg(boost::uuids::uuid const &uu)
  *  A @c boost::uuids::uuid object yields the same representation via
  *  its @c << operator or @c to_string() function.
  */
-std::string toHexString(boost::uuids::uuid const &uu)
+static inline std::string toHexString(boost::uuids::uuid const &uu)
 {
   return boost::uuids::to_string(uu);
 }
@@ -183,7 +183,7 @@ std::string toHexString(boost::uuids::uuid const &uu)
  *  @param msg uuid_msgs/UniqueID message.
  *  @returns canonical UUID hex string: "01234567-89ab-cdef-0123-456789abcdef".
  */
-std::string toHexString(uuid_msgs::UniqueID const &msg)
+static inline std::string toHexString(uuid_msgs::UniqueID const &msg)
 {
   return boost::uuids::to_string(fromMsg(msg));
 }

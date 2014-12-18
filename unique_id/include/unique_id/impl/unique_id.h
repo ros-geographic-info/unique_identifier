@@ -53,19 +53,21 @@ namespace unique_id
   {
 
     /* Instantiate boost string UUID generator. */
-    boost::uuids::string_generator genString;
+    static boost::uuids::string_generator genString;
 
     /* Instantiate boost random UUID generator. */
-    boost::uuids::random_generator genRandom;
+    static boost::uuids::random_generator genRandom;
 
     /* RFC 4122 namespace for URL identifiers. */
-    const std::string url_namespace = "6ba7b811-9dad-11d1-80b4-00c04fd430c8";
+    static const std::string url_namespace =
+      "6ba7b811-9dad-11d1-80b4-00c04fd430c8";
 
     /* RFC 4122 UUID for URL identifiers. */
-    const boost::uuids::uuid url_namespace_uuid = genString(url_namespace);
+    static const boost::uuids::uuid url_namespace_uuid =
+      genString(url_namespace);
 
     /* Instantiate boost URL name UUID generator. */
-    boost::uuids::name_generator genURL(url_namespace_uuid);
+    static boost::uuids::name_generator genURL(url_namespace_uuid);
 
   } // end namespace impl
 
