@@ -1,8 +1,8 @@
 Change history
 ==============
 
-Forthcoming
------------
+1.0.5 (2015-04-17)
+------------------
 
  * Alter C++ unique_id functions to work in multiple cpp files (`#7`_).
 
