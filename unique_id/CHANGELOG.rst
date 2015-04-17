@@ -1,6 +1,11 @@
 Change history
 ==============
 
+Forthcoming
+-----------
+
+ * Alter C++ unique_id functions to work in multiple cpp files (`#7`_).
+
 1.0.4 (2014-04-30)
 ------------------
 
@@ -38,3 +43,4 @@ Change history
 
 .. _`#1`: https://github.com/ros-geographic-info/unique_identifier/issues/1
 .. _`#4`: https://github.com/ros-geographic-info/unique_identifier/issues/4
+.. _`#7`: https://github.com/ros-geographic-info/unique_identifier/issues/7
