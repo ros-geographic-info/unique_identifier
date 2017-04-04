@@ -1,6 +1,12 @@
 Change history
 ==============
 
+1.0.6 (2017-04-04)
+------------------
+
+ * Remove Python ``install_requires`` option.
+ * Fix minor catkin lint issues.
+
 1.0.5 (2015-04-17)
 ------------------
 
