@@ -20,7 +20,7 @@ ament_target_dependencies(${PROJECT_NAME} "rclcpp" "rclpy" "uuid_msgs" "Boost")
 ament_export_include_directories("include")
 ament_export_libraries(${PROJECT_NAME})
 
-if(AMENT_ENABLE_TESTING OR BUILD_TESTING)
+if(BUILD_TESTING)
   find_package(ament_cmake_gmock REQUIRED)
   find_package(ament_lint_auto REQUIRED)
 
