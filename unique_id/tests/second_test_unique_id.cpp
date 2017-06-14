@@ -157,7 +157,7 @@ TEST(UniqueID2, nilMessage)
 {
   UniqueID x;
   x.uuid = {0};
-  UniqueID y = toMsg(uuid());
+  UniqueID y = toMsg(boost::uuids::nil_uuid());
   EXPECT_EQ(x.uuid, y.uuid);
 }
 

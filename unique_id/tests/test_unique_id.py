@@ -94,11 +94,11 @@ class TestPythonUUID(unittest.TestCase):
 
     def test_nil_msg(self):
         x = UniqueID()
-        y = toMsg(uuid.UUID(hex='00000000-0000-0000-0000-000000000000'))
-        self.assertEqual(x, y)
+        y = toMsg(uuid.UUID('00000000-0000-0000-0000-000000000000'))
+        self.assertSequenceEqual(x.uuid, y.uuid)
 
     def test_random_msg(self):
-        x = UniqueID()
+        x = toMsg(uuid.UUID('00000000-0000-0000-0000-000000000000'))
         y = toMsg(fromRandom())
         self.assertNotEqual(x, y)
 
@@ -106,12 +106,12 @@ class TestPythonUUID(unittest.TestCase):
         s = 'da7c242f-2efe-5175-9961-49cc621b80b9'
         x = toMsg(uuid.UUID(s))
         y = toMsg(uuid.UUID(s))
-        self.assertEqual(x, y)
+        self.assertEqual(x.uuid, y.uuid)
         self.assertEqual(s, toHexString(y))
 
     def test_to_and_from_msg(self):
         x = uuid.UUID('da7c242f-2efe-5175-9961-49cc621b80b9')
-        y = (fromMsg(toMsg(x)))
+        y = fromMsg(toMsg(x))
         self.assertEqual(x, y)
         self.assertEqual(type(y), uuid.UUID)
 
