@@ -7,7 +7,7 @@
 #include <unique_id/unique_id.h>
 using namespace unique_id;
 typedef boost::uuids::uuid uuid;
-typedef uuid_msgs::UniqueID UniqueID;
+typedef uuid_msgs::msg::UniqueID UniqueID;
 
 ///////////////////////////////////////////////////////////////
 // Test cases
@@ -154,6 +154,7 @@ TEST(BoostUUID, fromBogusString)
 TEST(UniqueID, nilMessage)
 {
   UniqueID x;
+  x.uuid = {0};
   UniqueID y = toMsg(uuid());
   EXPECT_EQ(x.uuid, y.uuid);
 }
@@ -161,6 +162,7 @@ TEST(UniqueID, nilMessage)
 TEST(UniqueID, randomMessage)
 {
   UniqueID x;
+  x.uuid = {0};
   UniqueID y = toMsg(fromRandom());
   EXPECT_NE(x.uuid, y.uuid);
 }

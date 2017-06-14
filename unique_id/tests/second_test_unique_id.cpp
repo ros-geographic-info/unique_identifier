@@ -9,7 +9,7 @@
 
 using namespace unique_id;
 typedef boost::uuids::uuid uuid;
-typedef uuid_msgs::UniqueID UniqueID;
+typedef uuid_msgs::msg::UniqueID UniqueID;
 
 ///////////////////////////////////////////////////////////////
 // Test cases
@@ -156,6 +156,7 @@ TEST(BoostUUID2, fromBogusString)
 TEST(UniqueID2, nilMessage)
 {
   UniqueID x;
+  x.uuid = {0};
   UniqueID y = toMsg(uuid());
   EXPECT_EQ(x.uuid, y.uuid);
 }
@@ -163,6 +164,7 @@ TEST(UniqueID2, nilMessage)
 TEST(UniqueID2, randomMessage)
 {
   UniqueID x;
+  x.uuid = {0};
   UniqueID y = toMsg(fromRandom());
   EXPECT_NE(x.uuid, y.uuid);
 }
