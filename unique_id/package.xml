@@ -1,4 +1,6 @@
-<package>
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
 
   <name>unique_id</name>
   <version>1.0.6</version>
@@ -12,13 +14,9 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>roscpp</build_depend>
-  <build_depend>rospy</build_depend>
-  <build_depend>uuid_msgs</build_depend>
-
-  <run_depend>roscpp</run_depend>
-  <run_depend>rospy</run_depend>
-  <run_depend>uuid_msgs</run_depend>
+  <depend>roscpp</depend>
+  <depend>rospy</depend>
+  <depend>uuid_msgs</depend>
 
   <test_depend>rosunit</test_depend>
 
