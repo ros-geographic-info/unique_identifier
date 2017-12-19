@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
-<package format="2">
+<?xml version='1.0' encoding='utf-8'?>
+<package format="3">
 
   <name>unique_id</name>
   <version>1.0.6</version>
@@ -12,7 +11,7 @@
   <license>BSD</license>
   <url>http://ros.org/wiki/unique_id</url>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>roscpp</depend>
   <depend>rospy</depend>
@@ -22,6 +21,7 @@
 
   <export>
     <rosdoc config="rosdoc.yaml" />
+    <build_type>ament_cmake</build_type>
   </export>
 
 </package>

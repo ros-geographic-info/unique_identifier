@@ -1,19 +1,42 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(unique_id)
 
-find_package(catkin REQUIRED COMPONENTS roscpp rospy uuid_msgs)
-find_package(Boost REQUIRED)
-include_directories(include ${catkin_INCLUDE_DIRS})
+# Add support for C++11
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 11)
+endif()
 
-catkin_python_setup()
-catkin_package(INCLUDE_DIRS include
-               CATKIN_DEPENDS uuid_msgs
-               DEPENDS Boost)
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(uuid_msgs REQUIRED)
+find_package(rclpy REQUIRED)
+
+set(INCLUDE_DIRS include ${ament_cmake_INCLUDE_DIRS} ${rclcpp_INCLUDE_DIRS}
+  ${uuid_msgs_INCLUDE_DIRS} ${rclpy_INCLUDE_DIRS})
+include_directories(${INCLUDE_DIRS})
+
+set(LIBRARY_DIRS ${ament_cmake_LIBRARY_DIRS} ${rclcpp_LIBRARY_DIRS}
+  ${uuid_msgs_LIBRARY_DIRS} ${rclpy_LIBRARY_DIRS})
+
+link_directories(${LIBRARY_DIRS})
+
+set(LIBS ${ament_cmake_LIBRARIES} ${rclcpp_LIBRARIES} ${uuid_msgs_LIBRARIES}
+  ${rclpy_LIBRARIES})
+
+find_package(Boost REQUIRED)
 
 install(DIRECTORY include/${PROJECT_NAME}/
-        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+  DESTINATION include/${PROJECT_NAME})
 
 # unit tests
-if (CATKIN_ENABLE_TESTING)
+if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
+
+ament_export_dependencies(ament_cmake)
+ament_export_dependencies(rclcpp)
+ament_export_dependencies(uuid_msgs)
+ament_export_dependencies(rclpy)
+ament_export_include_directories(${INCLUDE_DIRS})
+
+ament_package()
