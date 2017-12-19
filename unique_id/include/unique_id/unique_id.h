@@ -48,8 +48,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 
-#include <ros/ros.h>
-#include <uuid_msgs/UniqueID.h>
+#include <uuid_msgs/msg/unique_id.hpp>
 
 #include <unique_id/impl/unique_id.h> // private implementation details
 
@@ -82,7 +81,7 @@ namespace unique_id
  *  @param msg uuid_msgs/UniqueID message.
  *  @returns boost::uuids::uuid object.
  */
-static inline boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
+static inline boost::uuids::uuid fromMsg(uuid_msgs::msg::UniqueID const &msg)
 {
   boost::uuids::uuid uu;
   std::copy(msg.uuid.begin(), msg.uuid.end(), uu.begin());
@@ -158,9 +157,9 @@ static inline boost::uuids::uuid fromURL(std::string const &url)
  *  @param uu boost::uuids::uuid object.
  *  @returns uuid_msgs/UniqueID message.
  */
-static inline uuid_msgs::UniqueID toMsg(boost::uuids::uuid const &uu)
+static inline uuid_msgs::msg::UniqueID toMsg(boost::uuids::uuid const &uu)
 {
-  uuid_msgs::UniqueID msg;
+  uuid_msgs::msg::UniqueID msg;
   std::copy(uu.begin(), uu.end(), msg.uuid.begin());
   return msg;
 }
@@ -183,7 +182,7 @@ static inline std::string toHexString(boost::uuids::uuid const &uu)
  *  @param msg uuid_msgs/UniqueID message.
  *  @returns canonical UUID hex string: "01234567-89ab-cdef-0123-456789abcdef".
  */
-static inline std::string toHexString(uuid_msgs::UniqueID const &msg)
+static inline std::string toHexString(uuid_msgs::msg::UniqueID const &msg)
 {
   return boost::uuids::to_string(fromMsg(msg));
 }
