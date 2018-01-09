@@ -153,6 +153,19 @@ static inline boost::uuids::uuid fromURL(std::string const &url)
   return impl::genURL(url);
 }
 
+/** @brief Generate a Time Based UUID object.
+ *
+ *  @returns type 1 boost::uuids::uuid object.
+ *
+ *  Different calls to this function at any time or place will almost
+ *  certainly generate different UUIDs. The method used is RFC 4122
+ *  version 1.
+ */
+static inline boost::uuids::uuid fromTime(ros::Time time, char* hw_addr)
+{
+  return impl::genTime(time, hw_addr);
+}
+
 /** @brief Create a UniqueID message from a UUID object.
  *
  *  @param uu boost::uuids::uuid object.
