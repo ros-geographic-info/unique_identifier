@@ -43,6 +43,8 @@
     @author Jack O'Quin
  */
 
+#include <ros/ros.h>
+
 #include <boost/uuid/uuid_generators.hpp>
 
 namespace unique_id
@@ -51,7 +53,6 @@ namespace unique_id
   /** @brief C++ namespace for private implementation details. */
   namespace impl
   {
-
     /* Instantiate boost string UUID generator. */
     static boost::uuids::string_generator genString;
 
@@ -68,6 +69,44 @@ namespace unique_id
 
     /* Instantiate boost URL name UUID generator. */
     static boost::uuids::name_generator genURL(url_namespace_uuid);
+
+    /* Generate RFC4122 Version 1 Time-Based UUID */
+    static boost::uuids::uuid genTime(ros::Time uuid_time, uint64_t hw_addr)
+    {
+      // Get no. of 100 nanosecond intervals since 00:00:00 October 15, 1582
+      // The RFC4122 standard only requires the least significant 60 bits for timestamp
+
+      // No. of 100 ns intervals between 00:00:00 Oct 15, 1582 and 00:00:00 Jan 1, 1970
+      uint64_t offset = 122192928000000000;
+
+      uint64_t num_hundred_epoch = static_cast<uint64_t>(uuid_time.sec) / (1e-9 * 100) +
+                                   static_cast<uint64_t>(uuid_time.nsec) / 100;
+      // Note: Adding offset in the same line as the above statement may yield incorrect
+      //       values on some systems
+      uint64_t num_hundred_rfc = num_hundred_epoch + offset;
+
+      uint32_t time_low = static_cast<uint32_t>(num_hundred_rfc);
+      uint16_t time_mid = static_cast<uint16_t>(num_hundred_rfc >> 32);
+      uint16_t version = 0x1000;
+      uint16_t time_hi_and_version = static_cast<uint16_t>(num_hundred_rfc >> (32 + 16)) | version;
+
+      // Generate Clock Sequence ID based on random number
+      uint16_t clock_seq_and_reserved = (rand() % (1 << 14)) | 0x8000;
+
+      boost::uuids::uuid uu = {
+                                static_cast<uint8_t>(time_low >> 24), static_cast<uint8_t>(time_low >> 16),
+                                static_cast<uint8_t>(time_low >> 8),  static_cast<uint8_t>(time_low),
+                                static_cast<uint8_t>(time_mid >> 8),  static_cast<uint8_t>(time_mid),
+                                static_cast<uint8_t>(time_hi_and_version >> 8),
+                                static_cast<uint8_t>(time_hi_and_version),
+                                static_cast<uint8_t>(clock_seq_and_reserved >> 8),
+                                static_cast<uint8_t>(clock_seq_and_reserved),
+                                static_cast<uint8_t>(hw_addr >> 40), static_cast<uint8_t>(hw_addr >> 32),
+                                static_cast<uint8_t>(hw_addr >> 24), static_cast<uint8_t>(hw_addr >> 16),
+                                static_cast<uint8_t>(hw_addr >> 8),  static_cast<uint8_t>(hw_addr)
+                              };
+      return uu;
+    }
 
   } // end namespace impl
 
