@@ -106,6 +106,26 @@ def fromURL(url):
     """
     return uuid.uuid5(uuid.NAMESPACE_URL, url)
 
+def fromTime(timestamp, hw_addr):
+    """Generate a Time Based UUID object.
+
+    :param timestamp: The rospy.Time timestamp for UUID generation
+    :param hw_addr: A 48-bit long representing the network address
+    :returns: type 1 :class:`uuid.UUID` object
+
+    Different calls to this function at any time or place will almost
+    certainly generate different UUIDs. The method used is RFC 4122
+    version 1.
+    """
+    uu = uuid.uuid1(hw_addr)
+    offset = 122192928000000000
+    nano_epoch = long(timestamp.secs / (100 * 1e-9) + timestamp.nsecs / 100)
+    # return nano_epoch
+    nano_rfc = nano_epoch + offset
+    data = (nano_rfc & 0x0000000FFFFFFFF, (nano_rfc >> 32) & 0x000FFFF, (nano_rfc >> 48) | 0x1000,
+            uu.fields[3], uu.fields[4], uu.fields[5])
+    return uuid.UUID(fields=data)
+
 def toMsg(uuid_obj):
     """Create a UniqueID message from a UUID object.
 

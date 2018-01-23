@@ -153,6 +153,22 @@ static inline boost::uuids::uuid fromURL(std::string const &url)
   return impl::genURL(url);
 }
 
+/** @brief Generate a Time Based UUID object. Users are recommended to seed the random
+ *         number generator using srand from the calling application to generate the clock_id
+ *
+ *  @param timestamp The ros::Time timestamp for UUID generation
+ *  @param hw_addr A 48-bit (6 octets) network address assigned to the 48 LSBs
+ *  @returns type 1 boost::uuids::uuid object.
+ *
+ *  Different calls to this function at any time or place will almost
+ *  certainly generate different UUIDs. The method used is RFC 4122
+ *  version 1.
+ */
+static inline boost::uuids::uuid fromTime(ros::Time timestamp, uint64_t hw_addr)
+{
+  return impl::genTime(timestamp, hw_addr);
+}
+
 /** @brief Create a UniqueID message from a UUID object.
  *
  *  @param uu boost::uuids::uuid object.
