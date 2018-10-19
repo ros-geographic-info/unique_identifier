@@ -11,6 +11,7 @@
   <license>BSD</license>
   <url>http://ros.org/wiki/unique_id</url>
 
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
 
   <build_depend>rclpy</build_depend>
@@ -20,6 +21,7 @@
   <exec_depend>uuid_msgs</exec_depend>
 
   <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_cmake_nose</test_depend>
 
   <export>
     <rosdoc config="rosdoc.yaml" />

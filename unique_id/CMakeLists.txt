@@ -13,6 +13,7 @@ project(unique_id)
 find_package(Boost REQUIRED)  # uuid, note - not a package/component of its own
 
 # ROS Dependencies
+find_package(ament_cmake_python REQUIRED)
 find_package(ament_cmake_ros REQUIRED)
 find_package(uuid_msgs REQUIRED)
 
@@ -55,11 +56,12 @@ target_include_directories(
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
+  find_package(ament_cmake_nose REQUIRED)
   add_subdirectory(tests)
 endif()
 
 ##############################################################################
-# Installation
+# C++ Project Installation
 ##############################################################################
 
 # Downstream projects can link to the 'unique_id::unique_id' target.
@@ -74,6 +76,12 @@ install(
   DIRECTORY include/${PROJECT_NAME}/
   DESTINATION include/${PROJECT_NAME}
 )
+
+##############################################################################
+# Python Project Installation
+##############################################################################
+
+ament_python_install_package(${PROJECT_NAME})
 
 ##############################################################################
 # Ament Exports
