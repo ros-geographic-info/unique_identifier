@@ -13,9 +13,13 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>roscpp</depend>
-  <depend>rospy</depend>
-  <depend>uuid_msgs</depend>
+  <build_depend>rclcpp</build_depend>
+  <build_depend>rclpy</build_depend>
+  <build_depend>uuid_msgs</build_depend>
+
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>uuid_msgs</exec_depend>
 
   <test_depend>rosunit</test_depend>
 
