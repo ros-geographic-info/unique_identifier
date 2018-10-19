@@ -1,42 +1,86 @@
+##############################################################################
+# CMake
+##############################################################################
+
 cmake_minimum_required(VERSION 3.5)
 project(unique_id)
 
-# Add support for C++11
+##############################################################################
+# Find Packages
+##############################################################################
+
+# System Dependencies
+find_package(Boost REQUIRED)  # uuid, note - not a package/component of its own
+
+# ROS Dependencies
+find_package(ament_cmake_ros REQUIRED)
+find_package(uuid_msgs REQUIRED)
+
+##############################################################################
+# Project Configuration
+##############################################################################
+
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 11)
+  set(CMAKE_CXX_STANDARD 14)
 endif()
 
-find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(uuid_msgs REQUIRED)
-find_package(rclpy REQUIRED)
+##############################################################################
+# Header Library
+##############################################################################
 
-set(INCLUDE_DIRS include ${ament_cmake_INCLUDE_DIRS} ${rclcpp_INCLUDE_DIRS}
-  ${uuid_msgs_INCLUDE_DIRS} ${rclpy_INCLUDE_DIRS})
-include_directories(${INCLUDE_DIRS})
+add_library(${PROJECT_NAME} INTERFACE)
 
-set(LIBRARY_DIRS ${ament_cmake_LIBRARY_DIRS} ${rclcpp_LIBRARY_DIRS}
-  ${uuid_msgs_LIBRARY_DIRS} ${rclpy_LIBRARY_DIRS})
+target_link_libraries(
+  ${PROJECT_NAME}
+  PUBLIC
+    ${Boost_LIBRARIES}
+)
 
-link_directories(${LIBRARY_DIRS})
+# note: quotes to capture multiple directories
+target_include_directories(
+  ${PROJECT_NAME}
+  INTERFACE
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+    "$<BUILD_INTERFACE:${uuid_msgs_INCLUDE_DIRS}>"
+    "$<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>"
+    $<INSTALL_INTERFACE:include>
+    "$<INSTALL_INTERFACE:include:${uuid_msgs_INCLUDE_DIRS}>"
+    "$<INSTALL_INTERFACE:include:${Boost_INCLUDE_DIRS}>"
+)
 
-set(LIBS ${ament_cmake_LIBRARIES} ${rclcpp_LIBRARIES} ${uuid_msgs_LIBRARIES}
-  ${rclpy_LIBRARIES})
 
-find_package(Boost REQUIRED)
+##############################################################################
+# Tests
+##############################################################################
 
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION include/${PROJECT_NAME})
-
-# unit tests
 if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
   add_subdirectory(tests)
 endif()
 
-ament_export_dependencies(ament_cmake)
-ament_export_dependencies(rclcpp)
-ament_export_dependencies(uuid_msgs)
-ament_export_dependencies(rclpy)
-ament_export_include_directories(${INCLUDE_DIRS})
+##############################################################################
+# Installation
+##############################################################################
 
+# Downstream projects can link to the 'unique_id::unique_id' target.
+install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}
+  RUNTIME DESTINATION bin
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+)
+
+# Install the headers
+install(
+  DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION include/${PROJECT_NAME}
+)
+
+##############################################################################
+# Ament Exports
+##############################################################################
+
+ament_export_interfaces(${PROJECT_NAME})
+ament_export_dependencies(
+    uuid_msgs
+)
 ament_package()

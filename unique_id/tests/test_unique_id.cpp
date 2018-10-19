@@ -7,7 +7,7 @@
 #include <unique_id/unique_id.h>
 using namespace unique_id;
 typedef boost::uuids::uuid uuid;
-typedef uuid_msgs::UniqueID UniqueID;
+typedef uuid_msgs::msg::UniqueID UniqueID;
 
 ///////////////////////////////////////////////////////////////
 // Test cases

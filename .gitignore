@@ -10,3 +10,7 @@ bin/
 build/
 msg_gen/
 uuid_msgs/src
+*.project
+*.cproject
+*.pydevproject
+*.settings
