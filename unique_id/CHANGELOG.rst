@@ -1,6 +1,11 @@
 Change history
 ==============
 
+Forthcoming
+-----------
+
+ * Updated infrastructure for ROS2/ament
+
 1.0.6 (2017-04-04)
 ------------------
 
