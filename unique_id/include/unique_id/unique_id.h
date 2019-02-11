@@ -84,7 +84,7 @@ namespace unique_id
  */
 static inline boost::uuids::uuid fromMsg(uuid_msgs::UniqueID const &msg)
 {
-  boost::uuids::uuid uu;
+  boost::uuids::uuid uu{};
   std::copy(msg.uuid.begin(), msg.uuid.end(), uu.begin());
   return uu;
 }
